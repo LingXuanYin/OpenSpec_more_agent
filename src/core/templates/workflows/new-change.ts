@@ -5,12 +5,15 @@
  * templates file into workflow-focused modules.
  */
 import type { SkillTemplate, CommandTemplate } from '../types.js';
+import { ROLE_ORCHESTRATION_PROTOCOL } from './role-orchestration-protocol.js';
 
 export function getNewChangeSkillTemplate(): SkillTemplate {
   return {
     name: 'openspec-new-change',
     description: 'Start a new OpenSpec change using the experimental artifact workflow. Use when the user wants to create a new feature, fix, or modification with a structured step-by-step approach.',
     instructions: `Start a new change using the experimental artifact-driven approach.
+
+${ROLE_ORCHESTRATION_PROTOCOL}
 
 **Input**: The user's request should include a change name (kebab-case) OR a description of what they want to build.
 
@@ -86,6 +89,8 @@ export function getOpsxNewCommandTemplate(): CommandTemplate {
     category: 'Workflow',
     tags: ['workflow', 'artifacts', 'experimental'],
     content: `Start a new change using the experimental artifact-driven approach.
+
+${ROLE_ORCHESTRATION_PROTOCOL}
 
 **Input**: The argument after \`/opsx:new\` is the change name (kebab-case), OR a description of what the user wants to build.
 

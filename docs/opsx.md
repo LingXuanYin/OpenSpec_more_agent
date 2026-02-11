@@ -163,6 +163,26 @@ rules:
 | `/opsx:sync` | Sync delta specs to main (optional—archive prompts if needed) |
 | `/opsx:archive` | Archive when done |
 
+## Role-Based Agent Orchestration
+
+OPSX workflow commands now support a role-based protocol for complex work.
+
+- Default core roles: `product`, `architecture`, `worker`, `algorithm`
+- Every role is declared as `role + responsibility`
+- Roles must stay within their responsibility boundaries
+- The main agent dynamically decides whether to use multi-agent collaboration, which roles to activate, and whether temporary roles are needed
+- The main agent owns sequencing, parallelization, temporary-role assignment, and conflict arbitration
+- Role order is not hardcoded; it is decided dynamically per task
+- If a design role is active, at least one corresponding review role is required (one-to-one or one-to-many)
+- Temporary roles (for example, `security`, `qa`, `docs`) are allowed with explicit responsibility contracts
+- Undeclared roles do not participate; temporary roles without contracts are treated as invalid
+- Boundary violations are reassigned to the owning role by the main agent
+- For multi-role discussions, use an agent discussion group with a shared context packet (problem frame, constraints, decision scope)
+- Discussion messages are role-tagged and handoffs include objective, recommendation/decision, blockers/assumptions, and next owner
+- The main agent publishes a consolidated decision summary before downstream execution continues
+
+For agent runtimes with built-in multi-agent support (including Codex sub-agent mode), OPSX prompts map these roles to explicit sub-agent owners and keep orchestration authority with the main agent. If sub-agent mode is unavailable, OPSX falls back to explicit single-agent role sections with equivalent role contracts.
+
 ## Usage
 
 ### Explore an idea

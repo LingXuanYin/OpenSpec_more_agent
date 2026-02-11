@@ -6,6 +6,31 @@ import {
   generateSkillContent,
 } from '../../../src/core/shared/skill-generation.js';
 
+const roleProtocolAssertions = (text: string) => {
+  expect(text).toContain('Role Orchestration Protocol');
+  expect(text).toContain('`product`');
+  expect(text).toContain('`architecture`');
+  expect(text).toContain('`worker`');
+  expect(text).toContain('`algorithm`');
+  expect(text).toContain('Undeclared roles MUST NOT participate in execution.');
+  expect(text).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required.');
+  expect(text).toContain('Role execution order MUST NOT be hardcoded.');
+  expect(text).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
+  expect(text).toContain('Review mappings MAY be one-to-one or one-to-many, but every design scope MUST have review ownership.');
+  expect(text).toContain('The main agent publishes consolidated decisions before downstream execution continues.');
+  expect(text).toContain('MUST NOT execute work owned by another role.');
+  expect(text).toContain('Boundary violations MUST be flagged and reassigned to the owning role.');
+  expect(text).toContain('Temporary roles without explicit responsibility contracts are invalid and MUST be blocked.');
+  expect(text).toContain('When multiple roles discuss a decision, establish an agent discussion group with a shared context packet (problem frame, constraints, decision scope).');
+  expect(text).toContain('Role contributions in discussion groups MUST be role-tagged and reference the shared context packet.');
+  expect(text).toContain('The main agent publishes a consolidated decision summary with accepted direction and rejected alternatives before execution continues.');
+  expect(text).toContain('Inter-agent handoffs MUST include objective, recommendation or decision, blockers or assumptions, and next owner.');
+  expect(text).toContain('Agent exchanges MUST be concise, actionable, and unambiguous.');
+  expect(text).toContain('If runtime multi-agent mode exists (for example, Codex sub-agents), use it to assign role ownership.');
+  expect(text).toContain('In Codex multi-agent mode, map core roles to explicit sub-agent owners and make mapping visible in output.');
+  expect(text).toContain('If multi-agent mode is unavailable, emulate the same protocol with explicit role sections.');
+};
+
 describe('skill-generation', () => {
   describe('getSkillTemplates', () => {
     it('should return all 11 skill templates', () => {
@@ -84,6 +109,17 @@ describe('skill-generation', () => {
       expect(filtered).toHaveLength(1);
       expect(filtered[0].workflowId).toBe('propose');
       expect(filtered[0].dirName).toBe('openspec-propose');
+    });
+
+    it('should include role orchestration protocol in workflow skills', () => {
+      const templates = getSkillTemplates();
+      const workflowSkills = ['openspec-new-change', 'openspec-continue-change', 'openspec-apply-change', 'openspec-ff-change'];
+
+      for (const skillName of workflowSkills) {
+        const entry = templates.find((template) => template.dirName === skillName);
+        expect(entry).toBeDefined();
+        roleProtocolAssertions(entry!.template.instructions);
+      }
     });
   });
 
@@ -181,6 +217,17 @@ describe('skill-generation', () => {
       const all = getCommandContents();
       const noFilter = getCommandContents(undefined);
       expect(noFilter).toHaveLength(all.length);
+    });
+
+    it('should include role orchestration protocol in workflow commands', () => {
+      const contents = getCommandContents();
+      const workflowCommands = ['new', 'continue', 'apply', 'ff'];
+
+      for (const commandId of workflowCommands) {
+        const entry = contents.find((content) => content.id === commandId);
+        expect(entry).toBeDefined();
+        roleProtocolAssertions(entry!.body);
+      }
     });
   });
 

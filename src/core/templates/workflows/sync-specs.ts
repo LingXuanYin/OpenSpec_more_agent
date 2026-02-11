@@ -5,12 +5,15 @@
  * templates file into workflow-focused modules.
  */
 import type { SkillTemplate, CommandTemplate } from '../types.js';
+import { ROLE_ORCHESTRATION_PROTOCOL } from './role-orchestration-protocol.js';
 
 export function getSyncSpecsSkillTemplate(): SkillTemplate {
   return {
     name: 'openspec-sync-specs',
     description: 'Sync delta specs from a change to main specs. Use when the user wants to update main specs with changes from a delta spec, without archiving the change.',
     instructions: `Sync delta specs from a change to main specs.
+
+${ROLE_ORCHESTRATION_PROTOCOL}
 
 This is an **agent-driven** operation - you will read delta specs and directly edit main specs to apply the changes. This allows intelligent merging (e.g., adding a scenario without copying the entire requirement).
 
@@ -150,6 +153,8 @@ export function getOpsxSyncCommandTemplate(): CommandTemplate {
     category: 'Workflow',
     tags: ['workflow', 'specs', 'experimental'],
     content: `Sync delta specs from a change to main specs.
+
+${ROLE_ORCHESTRATION_PROTOCOL}
 
 This is an **agent-driven** operation - you will read delta specs and directly edit main specs to apply the changes. This allows intelligent merging (e.g., adding a scenario without copying the entire requirement).
 
