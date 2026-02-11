@@ -5,12 +5,15 @@
  * templates file into workflow-focused modules.
  */
 import type { SkillTemplate, CommandTemplate } from '../types.js';
+import { ROLE_ORCHESTRATION_PROTOCOL } from './role-orchestration-protocol.js';
 
 export function getBulkArchiveChangeSkillTemplate(): SkillTemplate {
   return {
     name: 'openspec-bulk-archive-change',
     description: 'Archive multiple completed changes at once. Use when archiving several parallel changes.',
     instructions: `Archive multiple completed changes in a single operation.
+
+${ROLE_ORCHESTRATION_PROTOCOL}
 
 This skill allows you to batch-archive changes, handling spec conflicts intelligently by checking the codebase to determine what's actually implemented.
 
@@ -258,6 +261,8 @@ export function getOpsxBulkArchiveCommandTemplate(): CommandTemplate {
     category: 'Workflow',
     tags: ['workflow', 'archive', 'experimental', 'bulk'],
     content: `Archive multiple completed changes in a single operation.
+
+${ROLE_ORCHESTRATION_PROTOCOL}
 
 This skill allows you to batch-archive changes, handling spec conflicts intelligently by checking the codebase to determine what's actually implemented.
 

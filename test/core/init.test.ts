@@ -300,6 +300,35 @@ describe('InitCommand', () => {
       // Should contain generatedBy field with a version string
       expect(content).toMatch(/generatedBy:\s*["']?\d+\.\d+\.\d+["']?/);
     });
+
+    it('should include role orchestration protocol in workflow skill files', async () => {
+      const initCommand = new InitCommand({ tools: 'claude', force: true });
+      await initCommand.execute(testDir);
+
+      const skillFiles = [
+        path.join(testDir, '.claude', 'skills', 'openspec-new-change', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'openspec-continue-change', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'openspec-apply-change', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'openspec-ff-change', 'SKILL.md'),
+      ];
+
+      for (const skillFile of skillFiles) {
+        const content = await fs.readFile(skillFile, 'utf-8');
+        expect(content).toContain('Role Orchestration Protocol');
+        expect(content).toContain('`product`');
+        expect(content).toContain('`architecture`');
+        expect(content).toContain('`worker`');
+        expect(content).toContain('`algorithm`');
+        expect(content).toContain('Undeclared roles MUST NOT participate in execution.');
+        expect(content).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required.');
+        expect(content).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
+        expect(content).toContain('Review mappings MAY be one-to-one or one-to-many, but every design scope MUST have review ownership.');
+        expect(content).toContain('When multiple roles discuss a decision, establish an agent discussion group with a shared context packet (problem frame, constraints, decision scope).');
+        expect(content).toContain('Inter-agent handoffs MUST include objective, recommendation or decision, blockers or assumptions, and next owner.');
+        expect(content).toContain('Temporary roles without explicit responsibility contracts are invalid and MUST be blocked.');
+        expect(content).toContain('In Codex multi-agent mode, map core roles to explicit sub-agent owners and make mapping visible in output.');
+      }
+    });
   });
 
   describe('command generation', () => {
@@ -325,6 +354,29 @@ describe('InitCommand', () => {
 
       const content = await fs.readFile(cmdFile, 'utf-8');
       expect(content).toMatch(/^---\n/);
+    });
+
+    it('should include role orchestration protocol in workflow command files', async () => {
+      const initCommand = new InitCommand({ tools: 'claude', force: true });
+      await initCommand.execute(testDir);
+
+      const commandFiles = [
+        path.join(testDir, '.claude', 'commands', 'opsx', 'new.md'),
+        path.join(testDir, '.claude', 'commands', 'opsx', 'continue.md'),
+        path.join(testDir, '.claude', 'commands', 'opsx', 'apply.md'),
+        path.join(testDir, '.claude', 'commands', 'opsx', 'ff.md'),
+      ];
+
+      for (const commandFile of commandFiles) {
+        const content = await fs.readFile(commandFile, 'utf-8');
+        expect(content).toContain('Role Orchestration Protocol');
+        expect(content).toContain('Role execution order MUST NOT be hardcoded.');
+        expect(content).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
+        expect(content).toContain('MUST NOT execute work owned by another role.');
+        expect(content).toContain('When multiple roles discuss a decision, establish an agent discussion group with a shared context packet (problem frame, constraints, decision scope).');
+        expect(content).toContain('Agent exchanges MUST be concise, actionable, and unambiguous.');
+        expect(content).toContain('If multi-agent mode is unavailable, emulate the same protocol with explicit role sections.');
+      }
     });
   });
 
