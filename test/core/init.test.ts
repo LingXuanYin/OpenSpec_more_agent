@@ -342,6 +342,11 @@ describe('InitCommand', () => {
         path.join(testDir, '.claude', 'skills', 'openspec-continue-change', 'SKILL.md'),
         path.join(testDir, '.claude', 'skills', 'openspec-apply-change', 'SKILL.md'),
         path.join(testDir, '.claude', 'skills', 'openspec-ff-change', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'openspec-sync-specs', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'openspec-archive-change', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'openspec-bulk-archive-change', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'openspec-verify-change', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'openspec-onboard', 'SKILL.md'),
       ];
 
       for (const skillFile of skillFiles) {
@@ -352,13 +357,17 @@ describe('InitCommand', () => {
         expect(content).toContain('`worker`');
         expect(content).toContain('`algorithm`');
         expect(content).toContain('Undeclared roles MUST NOT participate in execution.');
+        expect(content).toContain('Before role activation, the main agent MUST assess task complexity (for example: low, medium, high) and involved knowledge domains.');
+        expect(content).toContain('The main agent decides single-agent vs multi-agent execution based on complexity and domain assessment results.');
         expect(content).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required.');
         expect(content).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
         expect(content).toContain('Review mappings MAY be one-to-one or one-to-many, but every design scope MUST have review ownership.');
         expect(content).toContain('When multiple roles discuss a decision, establish an agent discussion group with a shared context packet (problem frame, constraints, decision scope).');
         expect(content).toContain('Inter-agent handoffs MUST include objective, recommendation or decision, blockers or assumptions, and next owner.');
         expect(content).toContain('Temporary roles without explicit responsibility contracts are invalid and MUST be blocked.');
+        expect(content).toContain('If required domains are not covered by active roles, the main agent MUST create temporary roles to cover those domains.');
         expect(content).toContain('In Codex multi-agent mode, map core roles to explicit sub-agent owners and make mapping visible in output.');
+        expect(content).toContain('When multi-agent mode is used, output MUST include concise activation rationale for active and inactive roles.');
       }
     });
   });
@@ -397,16 +406,24 @@ describe('InitCommand', () => {
         path.join(testDir, '.claude', 'commands', 'opsx', 'continue.md'),
         path.join(testDir, '.claude', 'commands', 'opsx', 'apply.md'),
         path.join(testDir, '.claude', 'commands', 'opsx', 'ff.md'),
+        path.join(testDir, '.claude', 'commands', 'opsx', 'sync.md'),
+        path.join(testDir, '.claude', 'commands', 'opsx', 'archive.md'),
+        path.join(testDir, '.claude', 'commands', 'opsx', 'bulk-archive.md'),
+        path.join(testDir, '.claude', 'commands', 'opsx', 'verify.md'),
+        path.join(testDir, '.claude', 'commands', 'opsx', 'onboard.md'),
       ];
 
       for (const commandFile of commandFiles) {
         const content = await fs.readFile(commandFile, 'utf-8');
         expect(content).toContain('Role Orchestration Protocol');
+        expect(content).toContain('Before role activation, the main agent MUST assess task complexity (for example: low, medium, high) and involved knowledge domains.');
+        expect(content).toContain('The main agent decides single-agent vs multi-agent execution based on complexity and domain assessment results.');
         expect(content).toContain('Role execution order MUST NOT be hardcoded.');
         expect(content).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
         expect(content).toContain('MUST NOT execute work owned by another role.');
         expect(content).toContain('When multiple roles discuss a decision, establish an agent discussion group with a shared context packet (problem frame, constraints, decision scope).');
         expect(content).toContain('Agent exchanges MUST be concise, actionable, and unambiguous.');
+        expect(content).toContain('When multi-agent mode is used, output MUST include concise activation rationale for active and inactive roles.');
         expect(content).toContain('If multi-agent mode is unavailable, emulate the same protocol with explicit role sections.');
       }
     });
