@@ -225,18 +225,26 @@ Old instructions content
         path.join(commandsDir, 'continue.md'),
         path.join(commandsDir, 'apply.md'),
         path.join(commandsDir, 'ff.md'),
+        path.join(commandsDir, 'sync.md'),
+        path.join(commandsDir, 'archive.md'),
+        path.join(commandsDir, 'bulk-archive.md'),
+        path.join(commandsDir, 'verify.md'),
+        path.join(commandsDir, 'onboard.md'),
       ];
 
       for (const commandFile of workflowCommandFiles) {
         const content = await fs.readFile(commandFile, 'utf-8');
         expect(content).toContain('Role Orchestration Protocol');
+        expect(content).toContain('Before role activation, the main agent MUST assess task complexity (for example: low, medium, high) and involved knowledge domains.');
         expect(content).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required.');
+        expect(content).toContain('The main agent decides single-agent vs multi-agent execution based on complexity and domain assessment results.');
         expect(content).toContain('Role execution order MUST NOT be hardcoded.');
         expect(content).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
         expect(content).toContain('When multiple roles discuss a decision, establish an agent discussion group with a shared context packet (problem frame, constraints, decision scope).');
         expect(content).toContain('Inter-agent handoffs MUST include objective, recommendation or decision, blockers or assumptions, and next owner.');
         expect(content).toContain('MUST NOT execute work owned by another role.');
         expect(content).toContain('In Codex multi-agent mode, map core roles to explicit sub-agent owners and make mapping visible in output.');
+        expect(content).toContain('When multi-agent mode is used, output MUST include concise activation rationale for active and inactive roles.');
       }
     });
   });
@@ -535,6 +543,11 @@ Old instructions content
         'openspec-continue-change',
         'openspec-apply-change',
         'openspec-ff-change',
+        'openspec-sync-specs',
+        'openspec-archive-change',
+        'openspec-bulk-archive-change',
+        'openspec-verify-change',
+        'openspec-onboard',
       ];
 
       for (const skillName of workflowSkills) {
@@ -552,10 +565,13 @@ Old instructions content
         expect(skillContent).toContain('`worker`');
         expect(skillContent).toContain('`algorithm`');
         expect(skillContent).toContain('Undeclared roles MUST NOT participate in execution.');
+        expect(skillContent).toContain('Before role activation, the main agent MUST assess task complexity (for example: low, medium, high) and involved knowledge domains.');
         expect(skillContent).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required.');
+        expect(skillContent).toContain('The main agent decides single-agent vs multi-agent execution based on complexity and domain assessment results.');
         expect(skillContent).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
         expect(skillContent).toContain('When multiple roles discuss a decision, establish an agent discussion group with a shared context packet (problem frame, constraints, decision scope).');
         expect(skillContent).toContain('Boundary violations MUST be flagged and reassigned to the owning role.');
+        expect(skillContent).toContain('When multi-agent mode is used, output MUST include concise activation rationale for active and inactive roles.');
       }
     });
   });
