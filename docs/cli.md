@@ -13,6 +13,7 @@ The OpenSpec CLI (`openspec`) provides terminal commands for project setup, vali
 | **Workflow** | `status`, `instructions`, `templates`, `schemas` | Artifact-driven workflow support |
 | **Schemas** | `schema init`, `schema fork`, `schema validate`, `schema which` | Create and manage custom workflows |
 | **Config** | `config` | View and modify settings |
+| **MCP** | `mcp init`, `mcp start` | Initialize and run standalone MCP tool server |
 | **Utility** | `feedback`, `completion` | Feedback and shell integration |
 
 ---
@@ -147,6 +148,52 @@ openspec update [path] [options]
 npm update @fission-ai/openspec
 openspec update
 ```
+
+---
+
+## MCP Commands
+
+### `openspec mcp init`
+
+Initialize an isolated runtime environment for the OpenSpec MCP server.
+
+```
+openspec mcp init [--root <path>]
+```
+
+Behavior:
+
+- Creates an isolated MCP runtime root (default under Codex home)
+- Creates per-tool workspace directories under `<runtime>/tools/<tool-name>`
+- Enforces no tool-to-tool dependencies in tool manifests
+- Validates SDK/third-party dependency version compatibility across tools
+- Writes environment metadata to `<runtime>/environment.json`
+
+This environment is intentionally isolated from the user's global runtime environment.
+
+### `openspec mcp start`
+
+Start the standalone OpenSpec MCP server runtime (isolated from OPSX prompt/template injection workflows).
+
+```
+openspec mcp start [--root <path>]
+```
+
+```bash
+# Startup verification without entering long-running mode
+openspec mcp start --dry-run
+
+# Start using a custom isolated runtime root
+openspec mcp start --root ./my-openspec-mcp-runtime
+```
+
+Behavior:
+
+- Starts a foreground MCP JSON-RPC server over stdio
+- Exposes a live tool registry
+- Includes one tool: `search_mcp_tools`
+- `search_mcp_tools` supports keyword matching by default and optional regex matching (`useRegex=true`)
+- Results are returned from the current in-memory registry in real time, including self-discovery when matching its own metadata
 
 ---
 

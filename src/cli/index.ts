@@ -16,6 +16,7 @@ import { CompletionCommand } from '../commands/completion.js';
 import { FeedbackCommand } from '../commands/feedback.js';
 import { registerConfigCommand } from '../commands/config.js';
 import { registerSchemaCommand } from '../commands/schema.js';
+import { ensureMcpEnvironment, startMcpServer } from '../mcp/index.js';
 import {
   statusCommand,
   instructionsCommand,
@@ -283,6 +284,48 @@ program
 registerSpecCommand(program);
 registerConfigCommand(program);
 registerSchemaCommand(program);
+
+const mcpCmd = program
+  .command('mcp')
+  .description('Standalone MCP server commands');
+
+mcpCmd
+  .command('init')
+  .description('Initialize isolated OpenSpec MCP runtime environment')
+  .option('--root <path>', 'Custom MCP runtime root directory')
+  .action(async (options?: { root?: string }) => {
+    try {
+      const environment = await ensureMcpEnvironment({ rootDir: options?.root });
+      console.log('OpenSpec MCP environment initialized.');
+      console.log(`- Runtime root: ${environment.runtimeRoot}`);
+      console.log(`- Tools root: ${environment.toolsRoot}`);
+      console.log(`- Metadata: ${environment.metadataFile}`);
+      console.log(`- Tool workspaces: ${Object.keys(environment.toolWorkspaces).length}`);
+    } catch (error) {
+      console.log();
+      ora().fail(`Error: ${(error as Error).message}`);
+      process.exit(1);
+    }
+  });
+
+mcpCmd
+  .command('start')
+  .description('Start the standalone OpenSpec MCP server')
+  .option('--root <path>', 'Custom MCP runtime root directory')
+  .option('--dry-run', 'Initialize MCP server and exit immediately (for verification/testing)')
+  .action(async (options?: { dryRun?: boolean; root?: string }) => {
+    try {
+      console.log('Starting OpenSpec standalone MCP server...');
+      await startMcpServer({
+        dryRun: options?.dryRun === true,
+        rootDir: options?.root,
+      });
+    } catch (error) {
+      console.log();
+      ora().fail(`Error: ${(error as Error).message}`);
+      process.exit(1);
+    }
+  });
 
 // Top-level validate command
 program
