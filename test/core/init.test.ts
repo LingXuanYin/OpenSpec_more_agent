@@ -45,13 +45,14 @@ describe('InitCommand', () => {
       expect(content).toContain('schema: spec-driven');
     });
 
-    it('should create 9 Agent Skills for Claude Code', async () => {
+    it('should create 11 Agent Skills for Claude Code', async () => {
       const initCommand = new InitCommand({ tools: 'claude', force: true });
 
       await initCommand.execute(testDir);
 
       const skillNames = [
         'openspec-explore',
+        'openspec-deepresearch',
         'openspec-new-change',
         'openspec-continue-change',
         'openspec-apply-change',
@@ -60,6 +61,7 @@ describe('InitCommand', () => {
         'openspec-archive-change',
         'openspec-bulk-archive-change',
         'openspec-verify-change',
+        'openspec-onboard',
       ];
 
       for (const skillName of skillNames) {
@@ -73,13 +75,14 @@ describe('InitCommand', () => {
       }
     });
 
-    it('should create 9 slash commands for Claude Code', async () => {
+    it('should create 11 slash commands for Claude Code', async () => {
       const initCommand = new InitCommand({ tools: 'claude', force: true });
 
       await initCommand.execute(testDir);
 
       const commandNames = [
         'opsx/explore.md',
+        'opsx/deepresearch.md',
         'opsx/new.md',
         'opsx/continue.md',
         'opsx/apply.md',
@@ -88,6 +91,7 @@ describe('InitCommand', () => {
         'opsx/archive.md',
         'opsx/bulk-archive.md',
         'opsx/verify.md',
+        'opsx/onboard.md',
       ];
 
       for (const cmdName of commandNames) {
@@ -306,6 +310,8 @@ describe('InitCommand', () => {
       await initCommand.execute(testDir);
 
       const skillFiles = [
+        path.join(testDir, '.claude', 'skills', 'openspec-explore', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'openspec-deepresearch', 'SKILL.md'),
         path.join(testDir, '.claude', 'skills', 'openspec-new-change', 'SKILL.md'),
         path.join(testDir, '.claude', 'skills', 'openspec-continue-change', 'SKILL.md'),
         path.join(testDir, '.claude', 'skills', 'openspec-apply-change', 'SKILL.md'),
@@ -320,6 +326,7 @@ describe('InitCommand', () => {
       for (const skillFile of skillFiles) {
         const content = await fs.readFile(skillFile, 'utf-8');
         expect(content).toContain('Role Orchestration Protocol');
+        expect(content).toContain('Mode-Specific Role Responsibilities');
         expect(content).toContain('`product`');
         expect(content).toContain('`architecture`');
         expect(content).toContain('`worker`');
@@ -327,7 +334,7 @@ describe('InitCommand', () => {
         expect(content).toContain('Undeclared roles MUST NOT participate in execution.');
         expect(content).toContain('Before role activation, the main agent MUST assess task complexity (for example: low, medium, high) and involved knowledge domains.');
         expect(content).toContain('The main agent decides single-agent vs multi-agent execution based on complexity and domain assessment results.');
-        expect(content).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required.');
+        expect(content).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required; sub-agents MUST be created only when a concrete need is identified or when the user explicitly requests them.');
         expect(content).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
         expect(content).toContain('Review mappings MAY be one-to-one or one-to-many, but every design scope MUST have review ownership.');
         expect(content).toContain('When multiple roles discuss a decision, establish an agent discussion group with a shared context packet (problem frame, constraints, decision scope).');
@@ -336,6 +343,12 @@ describe('InitCommand', () => {
         expect(content).toContain('If required domains are not covered by active roles, the main agent MUST create temporary roles to cover those domains.');
         expect(content).toContain('In Codex multi-agent mode, map core roles to explicit sub-agent owners and make mapping visible in output.');
         expect(content).toContain('When multi-agent mode is used, output MUST include concise activation rationale for active and inactive roles.');
+        if (skillFile.includes('openspec-explore')) {
+          expect(content).toContain('MUST NOT implement feature code in explore mode.');
+        }
+        if (skillFile.includes('openspec-deepresearch')) {
+          expect(content).toContain('MUST NOT produce feature implementation code in deepresearch mode.');
+        }
       }
     });
   });
@@ -370,6 +383,8 @@ describe('InitCommand', () => {
       await initCommand.execute(testDir);
 
       const commandFiles = [
+        path.join(testDir, '.claude', 'commands', 'opsx', 'explore.md'),
+        path.join(testDir, '.claude', 'commands', 'opsx', 'deepresearch.md'),
         path.join(testDir, '.claude', 'commands', 'opsx', 'new.md'),
         path.join(testDir, '.claude', 'commands', 'opsx', 'continue.md'),
         path.join(testDir, '.claude', 'commands', 'opsx', 'apply.md'),
@@ -384,6 +399,7 @@ describe('InitCommand', () => {
       for (const commandFile of commandFiles) {
         const content = await fs.readFile(commandFile, 'utf-8');
         expect(content).toContain('Role Orchestration Protocol');
+        expect(content).toContain('Mode-Specific Role Responsibilities');
         expect(content).toContain('Before role activation, the main agent MUST assess task complexity (for example: low, medium, high) and involved knowledge domains.');
         expect(content).toContain('The main agent decides single-agent vs multi-agent execution based on complexity and domain assessment results.');
         expect(content).toContain('Role execution order MUST NOT be hardcoded.');
@@ -393,6 +409,12 @@ describe('InitCommand', () => {
         expect(content).toContain('Agent exchanges MUST be concise, actionable, and unambiguous.');
         expect(content).toContain('When multi-agent mode is used, output MUST include concise activation rationale for active and inactive roles.');
         expect(content).toContain('If multi-agent mode is unavailable, emulate the same protocol with explicit role sections.');
+        if (commandFile.endsWith('explore.md')) {
+          expect(content).toContain('MUST NOT implement feature code in explore mode.');
+        }
+        if (commandFile.endsWith('deepresearch.md')) {
+          expect(content).toContain('MUST NOT produce feature implementation code in deepresearch mode.');
+        }
       }
     });
   });

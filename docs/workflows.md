@@ -121,6 +121,16 @@ AI:  Creating specs...
 
 **Best for:** Performance optimization, debugging, architectural decisions, unclear requirements.
 
+### Deep Research First
+
+When you need rigorous research before any implementation planning:
+
+```text
+/opsx:deepresearch ──► /opsx:new ──► /opsx:continue or /opsx:ff ──► /opsx:apply
+```
+
+**Best for:** Academic investigations, research-to-product translation, high-uncertainty solution selection.
+
 ### Parallel Changes
 
 Work on multiple changes at once:
@@ -409,6 +419,7 @@ For full command details and options, see [Commands](commands.md).
 | Command | Purpose | When to Use |
 |---------|---------|-------------|
 | `/opsx:explore` | Think through ideas | Unclear requirements, investigation |
+| `/opsx:deepresearch` | Research-first analysis (no implementation) | Academic/strategy-heavy changes |
 | `/opsx:new` | Start a change | Beginning any new work |
 | `/opsx:continue` | Create next artifact | Step-by-step artifact creation |
 | `/opsx:ff` | Create all planning artifacts | Clear scope, ready to build |

@@ -5,7 +5,7 @@
  * templates file into workflow-focused modules.
  */
 import type { SkillTemplate, CommandTemplate } from '../types.js';
-import { ROLE_ORCHESTRATION_PROTOCOL } from './role-orchestration-protocol.js';
+import { ROLE_ORCHESTRATION_PROTOCOL, getModeSpecificRoleResponsibilities } from './role-orchestration-protocol.js';
 
 export function getFfChangeSkillTemplate(): SkillTemplate {
   return {
@@ -14,6 +14,7 @@ export function getFfChangeSkillTemplate(): SkillTemplate {
     instructions: `Fast-forward through artifact creation - generate everything needed to start implementation in one go.
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('ff')}
 
 **Input**: The user's request should include a change name (kebab-case) OR a description of what they want to build.
 
@@ -118,6 +119,7 @@ export function getOpsxFfCommandTemplate(): CommandTemplate {
     content: `Fast-forward through artifact creation - generate everything needed to start implementation.
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('ff')}
 
 **Input**: The argument after \`/opsx:ff\` is the change name (kebab-case), OR a description of what the user wants to build.
 

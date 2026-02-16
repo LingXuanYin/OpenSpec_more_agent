@@ -5,7 +5,7 @@
  * templates file into workflow-focused modules.
  */
 import type { SkillTemplate, CommandTemplate } from '../types.js';
-import { ROLE_ORCHESTRATION_PROTOCOL } from './role-orchestration-protocol.js';
+import { ROLE_ORCHESTRATION_PROTOCOL, getModeSpecificRoleResponsibilities } from './role-orchestration-protocol.js';
 
 export function getVerifyChangeSkillTemplate(): SkillTemplate {
   return {
@@ -14,6 +14,7 @@ export function getVerifyChangeSkillTemplate(): SkillTemplate {
     instructions: `Verify that an implementation matches the change artifacts (specs, tasks, design).
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('verify')}
 
 **Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
@@ -185,6 +186,7 @@ export function getOpsxVerifyCommandTemplate(): CommandTemplate {
     content: `Verify that an implementation matches the change artifacts (specs, tasks, design).
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('verify')}
 
 **Input**: Optionally specify a change name after \`/opsx:verify\` (e.g., \`/opsx:verify add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 

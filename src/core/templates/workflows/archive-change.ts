@@ -5,7 +5,7 @@
  * templates file into workflow-focused modules.
  */
 import type { SkillTemplate, CommandTemplate } from '../types.js';
-import { ROLE_ORCHESTRATION_PROTOCOL } from './role-orchestration-protocol.js';
+import { ROLE_ORCHESTRATION_PROTOCOL, getModeSpecificRoleResponsibilities } from './role-orchestration-protocol.js';
 
 export function getArchiveChangeSkillTemplate(): SkillTemplate {
   return {
@@ -14,6 +14,7 @@ export function getArchiveChangeSkillTemplate(): SkillTemplate {
     instructions: `Archive a completed change in the experimental workflow.
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('archive')}
 
 **Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
@@ -131,6 +132,7 @@ export function getOpsxArchiveCommandTemplate(): CommandTemplate {
     content: `Archive a completed change in the experimental workflow.
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('archive')}
 
 **Input**: Optionally specify a change name after \`/opsx:archive\` (e.g., \`/opsx:archive add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 

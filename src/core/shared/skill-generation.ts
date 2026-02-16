@@ -6,6 +6,7 @@
 
 import {
   getExploreSkillTemplate,
+  getDeepResearchSkillTemplate,
   getNewChangeSkillTemplate,
   getContinueChangeSkillTemplate,
   getApplyChangeSkillTemplate,
@@ -16,6 +17,7 @@ import {
   getVerifyChangeSkillTemplate,
   getOnboardSkillTemplate,
   getOpsxExploreCommandTemplate,
+  getOpsxDeepResearchCommandTemplate,
   getOpsxNewCommandTemplate,
   getOpsxContinueCommandTemplate,
   getOpsxApplyCommandTemplate,
@@ -51,6 +53,7 @@ export interface CommandTemplateEntry {
 export function getSkillTemplates(): SkillTemplateEntry[] {
   return [
     { template: getExploreSkillTemplate(), dirName: 'openspec-explore' },
+    { template: getDeepResearchSkillTemplate(), dirName: 'openspec-deepresearch' },
     { template: getNewChangeSkillTemplate(), dirName: 'openspec-new-change' },
     { template: getContinueChangeSkillTemplate(), dirName: 'openspec-continue-change' },
     { template: getApplyChangeSkillTemplate(), dirName: 'openspec-apply-change' },
@@ -69,6 +72,7 @@ export function getSkillTemplates(): SkillTemplateEntry[] {
 export function getCommandTemplates(): CommandTemplateEntry[] {
   return [
     { template: getOpsxExploreCommandTemplate(), id: 'explore' },
+    { template: getOpsxDeepResearchCommandTemplate(), id: 'deepresearch' },
     { template: getOpsxNewCommandTemplate(), id: 'new' },
     { template: getOpsxContinueCommandTemplate(), id: 'continue' },
     { template: getOpsxApplyCommandTemplate(), id: 'apply' },

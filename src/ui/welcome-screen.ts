@@ -25,6 +25,7 @@ function getWelcomeText(): string[] {
     chalk.dim('  • /opsx:* slash commands'),
     '',
     chalk.white('Quick start after setup:'),
+    `  ${chalk.yellow('/opsx:deepresearch')} ${chalk.dim('Research before implementation')}`,
     `  ${chalk.yellow('/opsx:new')}      ${chalk.dim('Create a change')}`,
     `  ${chalk.yellow('/opsx:continue')} ${chalk.dim('Next artifact')}`,
     `  ${chalk.yellow('/opsx:apply')}    ${chalk.dim('Implement tasks')}`,

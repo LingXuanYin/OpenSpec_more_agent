@@ -571,6 +571,7 @@ export class InitCommand {
     // Getting started
     console.log();
     console.log(chalk.bold('Getting started:'));
+    console.log('  /opsx:deepresearch  Research and option analysis (no implementation)');
     console.log('  /opsx:new       Start a new change');
     console.log('  /opsx:continue  Create the next artifact');
     console.log('  /opsx:apply     Implement tasks');

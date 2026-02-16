@@ -5,7 +5,7 @@
  * templates file into workflow-focused modules.
  */
 import type { SkillTemplate, CommandTemplate } from '../types.js';
-import { ROLE_ORCHESTRATION_PROTOCOL } from './role-orchestration-protocol.js';
+import { ROLE_ORCHESTRATION_PROTOCOL, getModeSpecificRoleResponsibilities } from './role-orchestration-protocol.js';
 
 export function getOnboardSkillTemplate(): SkillTemplate {
   return {
@@ -22,6 +22,7 @@ function getOnboardInstructions(): string {
   return `Guide the user through their first complete OpenSpec workflow cycle. This is a teaching experience鈥攜ou'll do real work in their codebase while explaining each step.
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('onboard')}
 
 ---
 
@@ -481,6 +482,7 @@ This same rhythm works for any size change鈥攁 small fix or a major feature.
 | Command | What it does |
 |---------|--------------|
 | \`/opsx:explore\` | Think through problems before/during work |
+| \`/opsx:deepresearch\` | Deep academic/solution research (no code implementation) |
 | \`/opsx:new\` | Start a new change, step through artifacts |
 | \`/opsx:ff\` | Fast-forward: create all artifacts at once |
 | \`/opsx:continue\` | Continue working on an existing change |
@@ -525,6 +527,7 @@ If the user says they just want to see the commands or skip the tutorial:
 | Command | What it does |
 |---------|--------------|
 | \`/opsx:explore\` | Think through problems (no code changes) |
+| \`/opsx:deepresearch\` | Deep academic/solution research (no code implementation) |
 | \`/opsx:new <name>\` | Start a new change, step by step |
 | \`/opsx:ff <name>\` | Fast-forward: all artifacts at once |
 | \`/opsx:continue <name>\` | Continue an existing change |

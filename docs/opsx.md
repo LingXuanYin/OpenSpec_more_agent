@@ -156,6 +156,7 @@ rules:
 | Command | What it does |
 |---------|--------------|
 | `/opsx:explore` | Think through ideas, investigate problems, clarify requirements |
+| `/opsx:deepresearch` | Run rigorous research/analysis for academic outcomes and solution options (no code implementation) |
 | `/opsx:new` | Start a new change |
 | `/opsx:continue` | Create the next artifact (based on what's ready) |
 | `/opsx:ff` | Fast-forward — create all planning artifacts at once |
@@ -170,9 +171,9 @@ OPSX workflow commands now support a role-based protocol for complex work.
 - Default core roles: `product`, `architecture`, `worker`, `algorithm`
 - Every role is declared as `role + responsibility`
 - Roles must stay within their responsibility boundaries
-- Protocol coverage includes: `/opsx:new`, `/opsx:continue`, `/opsx:apply`, `/opsx:ff`, `/opsx:verify`, `/opsx:sync`, `/opsx:archive`, `/opsx:bulk-archive`, and `/opsx:onboard`
+- Protocol coverage includes: `/opsx:explore`, `/opsx:deepresearch`, `/opsx:new`, `/opsx:continue`, `/opsx:apply`, `/opsx:ff`, `/opsx:verify`, `/opsx:sync`, `/opsx:archive`, `/opsx:bulk-archive`, and `/opsx:onboard`
 - Before role activation, the main agent assesses task complexity and involved knowledge domains
-- The main agent dynamically decides whether to use multi-agent collaboration, which roles to activate, and whether temporary roles are needed
+- The main agent dynamically decides whether to use multi-agent collaboration, which roles to activate, and whether temporary roles are needed; sub-agents are created only when there is a concrete need or an explicit user request
 - The main agent decides single-agent vs multi-agent execution from the complexity/domain assessment
 - The main agent owns sequencing, parallelization, temporary-role assignment, and conflict arbitration
 - Role order is not hardcoded; it is decided dynamically per task
@@ -185,8 +186,16 @@ OPSX workflow commands now support a role-based protocol for complex work.
 - Discussion messages are role-tagged and handoffs include objective, recommendation/decision, blockers/assumptions, and next owner
 - The main agent publishes a consolidated decision summary before downstream execution continues
 - In multi-agent mode, outputs include explicit role-to-owner mapping and concise reasons for active/inactive roles
+- Mode boundary: `/opsx:explore` is role-based analysis only; it must not produce feature-code implementation work
+- Mode boundary: `/opsx:deepresearch` is research/analysis only; it must not produce feature-code implementation work
+- Mode boundary: `/opsx:new`, `/opsx:continue`, and `/opsx:ff` are artifact/planning-oriented; they must not perform feature-code implementation
+- Mode boundary: `/opsx:apply` is implementation-oriented; worker owns code changes while other roles review and constrain
+- Mode boundary: `/opsx:verify` is validation-oriented; it must not introduce new feature scope
+- Mode boundary: `/opsx:sync` is spec-merge-oriented; it must not implement application feature code
+- Mode boundary: `/opsx:archive` and `/opsx:bulk-archive` are operational; they must not implement new feature code
+- Mode boundary: `/opsx:onboard` is phase-driven; non-implementation phases must not code, apply phase may implement
 
-For agent runtimes with built-in multi-agent support (including Codex sub-agent mode), OPSX prompts map these roles to explicit sub-agent owners and keep orchestration authority with the main agent. If sub-agent mode is unavailable, OPSX falls back to explicit single-agent role sections with equivalent role contracts.
+For agent runtimes with built-in multi-agent support (including Codex sub-agent mode), OPSX prompts map these roles to explicit sub-agent owners only when complexity/domain analysis confirms a concrete need or the user explicitly asks for sub-agents, while keeping orchestration authority with the main agent. If sub-agent mode is unavailable, OPSX falls back to explicit single-agent role sections with equivalent role contracts.
 
 ## Usage
 
@@ -195,6 +204,12 @@ For agent runtimes with built-in multi-agent support (including Codex sub-agent 
 /opsx:explore
 ```
 Think through ideas, investigate problems, compare options. No structure required - just a thinking partner. When insights crystallize, transition to `/opsx:new` or `/opsx:ff`.
+
+### Deep research
+```
+/opsx:deepresearch
+```
+Run research-first analysis for academic/industry outcomes and option trade-offs. This mode is analysis-only and does not permit code implementation output.
 
 ### Start a new change
 ```
