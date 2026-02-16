@@ -3,13 +3,13 @@ import { FileSystemUtils } from './file-system.js';
 import { writeChangeMetadata, validateSchemaName } from './change-metadata.js';
 import { readProjectConfig } from '../core/project-config.js';
 
-const DEFAULT_SCHEMA = 'spec-driven';
+const DEFAULT_SCHEMA = 'spec-tdd';
 
 /**
  * Options for creating a change.
  */
 export interface CreateChangeOptions {
-  /** The workflow schema to use (default: 'spec-driven') */
+  /** The workflow schema to use (default: 'spec-tdd') */
   schema?: string;
 }
 
@@ -102,7 +102,7 @@ export function validateChangeName(name: string): ValidationResult {
  * @example
  * // Creates openspec/changes/add-auth/ with default schema
  * const result = await createChange('/path/to/project', 'add-auth')
- * console.log(result.schema) // 'spec-driven' or value from config
+ * console.log(result.schema) // 'spec-tdd' or value from config
  *
  * @example
  * // Creates openspec/changes/add-auth/ with custom schema

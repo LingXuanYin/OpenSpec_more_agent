@@ -31,11 +31,13 @@ ${getModeSpecificRoleResponsibilities('new')}
 
 2. **Determine the workflow schema**
 
-   Use the default schema (omit \`--schema\`) unless the user explicitly requests a different workflow.
+   Use the default schema (omit \`--schema\`) unless the request clearly indicates another workflow.
 
-   **Use a different schema only if the user mentions:**
-   - A specific schema name → use \`--schema <name>\`
-   - "show workflows" or "what workflows" → run \`openspec schemas --json\` and let them choose
+   **Use a different schema when:**
+   - The user names a specific schema -> use \`--schema <name>\`
+   - The user asks for "show workflows" or "what workflows" -> run \`openspec schemas --json\` and let them choose
+   - The user asks for orthogonal spec+TDD flow (phrases like "spec+tdd", "tdd+spec", "orthogonal") -> use \`--schema spec-tdd\`
+   - The user asks for strict TDD-only flow -> use \`--schema tdd\`
 
    **Otherwise**: Omit \`--schema\` to use the default.
 
@@ -109,11 +111,13 @@ ${getModeSpecificRoleResponsibilities('new')}
 
 2. **Determine the workflow schema**
 
-   Use the default schema (omit \`--schema\`) unless the user explicitly requests a different workflow.
+   Use the default schema (omit \`--schema\`) unless the request clearly indicates another workflow.
 
-   **Use a different schema only if the user mentions:**
-   - A specific schema name → use \`--schema <name>\`
-   - "show workflows" or "what workflows" → run \`openspec schemas --json\` and let them choose
+   **Use a different schema when:**
+   - The user names a specific schema -> use \`--schema <name>\`
+   - The user asks for "show workflows" or "what workflows" -> run \`openspec schemas --json\` and let them choose
+   - The user asks for orthogonal spec+TDD flow (phrases like "spec+tdd", "tdd+spec", "orthogonal") -> use \`--schema spec-tdd\`
+   - The user asks for strict TDD-only flow -> use \`--schema tdd\`
 
    **Otherwise**: Omit \`--schema\` to use the default.
 

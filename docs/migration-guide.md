@@ -178,7 +178,7 @@ Our API is RESTful and documented in docs/api.md.
 ### After (config.yaml)
 
 ```yaml
-schema: spec-driven
+schema: spec-tdd
 
 context: |
   Tech stack: TypeScript, React, Node.js
@@ -229,7 +229,7 @@ When migrating, be selective. Ask yourself: "Does the AI need this for *every* p
 
 1. **Create config.yaml** (if not already created by init):
    ```yaml
-   schema: spec-driven
+   schema: spec-tdd
    ```
 
 2. **Add your context** (be concise—this goes into every request):
@@ -427,7 +427,7 @@ openspec status --change add-my-feature
 
 ```yaml
 # Required: Default schema for new changes
-schema: spec-driven
+schema: spec-tdd
 
 # Optional: Project context (max 50KB)
 # Injected into ALL artifact instructions
@@ -455,13 +455,15 @@ When determining which schema to use, OPSX checks in order:
 1. **CLI flag**: `--schema <name>` (highest priority)
 2. **Change metadata**: `.openspec.yaml` in the change directory
 3. **Project config**: `openspec/config.yaml`
-4. **Default**: `spec-driven`
+4. **Default**: `spec-tdd`
 
 ### Available Schemas
 
 | Schema | Artifacts | Best For |
 |--------|-----------|----------|
-| `spec-driven` | proposal → specs → design → tasks | Most projects |
+| `spec-tdd` | proposal → specs + tdd-plan → design → tasks | Default orthogonal flow |
+| `spec-driven` | proposal → specs → design → tasks | Spec-first planning |
+| `tdd` | tests → implementation → docs | Strict TDD flow |
 
 List all available schemas:
 

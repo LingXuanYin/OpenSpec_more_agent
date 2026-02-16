@@ -26,7 +26,7 @@ ${getModeSpecificRoleResponsibilities('continue')}
 
    Present the top 3-4 most recently modified changes as options, showing:
    - Change name
-   - Schema (from \`schema\` field if present, otherwise "spec-driven")
+   - Schema (from \`schema\` field if present, otherwise "spec-tdd")
    - Status (e.g., "0/5 tasks", "complete", "no tasks")
    - How recently it was modified (from \`lastModified\` field)
 
@@ -39,7 +39,7 @@ ${getModeSpecificRoleResponsibilities('continue')}
    openspec status --change "<name>" --json
    \`\`\`
    Parse the JSON to understand current state. The response includes:
-   - \`schemaName\`: The workflow schema being used (e.g., "spec-driven")
+   - \`schemaName\`: The workflow schema being used (e.g., "spec-tdd")
    - \`artifacts\`: Array of artifacts with their status ("done", "ready", "blocked")
    - \`isComplete\`: Boolean indicating if all artifacts are complete
 
@@ -102,12 +102,19 @@ The artifact types and their purpose depend on the schema. Use the \`instruction
 
 Common artifact patterns:
 
-**spec-driven schema** (proposal → specs → design → tasks):
+**spec-driven schema** (proposal -> specs -> design -> tasks):
 - **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
   - The Capabilities section is critical - each capability listed will need a spec file.
 - **specs/<capability>/spec.md**: Create one spec per capability listed in the proposal's Capabilities section (use the capability name, not the change name).
 - **design.md**: Document technical decisions, architecture, and implementation approach.
 - **tasks.md**: Break down implementation into checkboxed tasks.
+
+**spec-tdd schema** (proposal -> specs + tdd-plan -> design -> tasks):
+- **proposal.md**: Define scope plus capability map and verification goals.
+- **specs/<capability>/spec.md**: Behavioral requirements and scenarios (spec track).
+- **test-plan.md**: RED-GREEN-REFACTOR strategy and test matrix (tdd track).
+- **design.md**: Reconcile both tracks into one implementation approach.
+- **tasks.md**: Small execution slices with RED/GREEN/REFACTOR checkboxes.
 
 For other schemas, follow the \`instruction\` field from the CLI output.
 
@@ -148,7 +155,7 @@ ${getModeSpecificRoleResponsibilities('continue')}
 
    Present the top 3-4 most recently modified changes as options, showing:
    - Change name
-   - Schema (from \`schema\` field if present, otherwise "spec-driven")
+   - Schema (from \`schema\` field if present, otherwise "spec-tdd")
    - Status (e.g., "0/5 tasks", "complete", "no tasks")
    - How recently it was modified (from \`lastModified\` field)
 
@@ -161,7 +168,7 @@ ${getModeSpecificRoleResponsibilities('continue')}
    openspec status --change "<name>" --json
    \`\`\`
    Parse the JSON to understand current state. The response includes:
-   - \`schemaName\`: The workflow schema being used (e.g., "spec-driven")
+   - \`schemaName\`: The workflow schema being used (e.g., "spec-tdd")
    - \`artifacts\`: Array of artifacts with their status ("done", "ready", "blocked")
    - \`isComplete\`: Boolean indicating if all artifacts are complete
 
@@ -224,12 +231,19 @@ The artifact types and their purpose depend on the schema. Use the \`instruction
 
 Common artifact patterns:
 
-**spec-driven schema** (proposal → specs → design → tasks):
+**spec-driven schema** (proposal -> specs -> design -> tasks):
 - **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
   - The Capabilities section is critical - each capability listed will need a spec file.
 - **specs/<capability>/spec.md**: Create one spec per capability listed in the proposal's Capabilities section (use the capability name, not the change name).
 - **design.md**: Document technical decisions, architecture, and implementation approach.
 - **tasks.md**: Break down implementation into checkboxed tasks.
+
+**spec-tdd schema** (proposal -> specs + tdd-plan -> design -> tasks):
+- **proposal.md**: Define scope plus capability map and verification goals.
+- **specs/<capability>/spec.md**: Behavioral requirements and scenarios (spec track).
+- **test-plan.md**: RED-GREEN-REFACTOR strategy and test matrix (tdd track).
+- **design.md**: Reconcile both tracks into one implementation approach.
+- **tasks.md**: Small execution slices with RED/GREEN/REFACTOR checkboxes.
 
 For other schemas, follow the \`instruction\` field from the CLI output.
 

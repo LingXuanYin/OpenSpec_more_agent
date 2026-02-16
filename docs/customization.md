@@ -28,7 +28,8 @@ This walks you through creating a config interactively. Or create one manually:
 
 ```yaml
 # openspec/config.yaml
-schema: spec-driven
+schema: spec-tdd
+# Built-in options: spec-driven, spec-tdd, tdd
 
 context: |
   Tech stack: TypeScript, React, Node.js, PostgreSQL
@@ -50,12 +51,22 @@ rules:
 **Default schema:**
 
 ```bash
-# Without config
+# Without config (uses built-in default: spec-tdd)
+openspec new change my-feature
+
+# Explicit alternatives
 openspec new change my-feature --schema spec-driven
+openspec new change my-feature --schema tdd
 
 # With config - schema is automatic
 openspec new change my-feature
 ```
+
+### Built-in Workflow Intents
+
+- `spec-driven`: classic proposal/specs/design/tasks flow.
+- `spec-tdd`: orthogonal planning where spec track and TDD track run in parallel, then converge before implementation.
+- `tdd`: test-first flow focused on RED-GREEN-REFACTOR execution.
 
 **Context and rules injection:**
 
@@ -87,7 +98,7 @@ When OpenSpec needs a schema, it checks in this order:
 1. CLI flag: `--schema <name>`
 2. Change metadata (`.openspec.yaml` in the change folder)
 3. Project config (`openspec/config.yaml`)
-4. Default (`spec-driven`)
+4. Default (`spec-tdd`)
 
 ---
 

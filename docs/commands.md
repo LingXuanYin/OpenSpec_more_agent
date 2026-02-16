@@ -141,12 +141,22 @@ AI:  Created openspec/changes/add-dark-mode/
 
      Ready to create: proposal
      Use /opsx:continue to create it, or /opsx:ff to create all artifacts.
+
+You: /opsx:new improve-role-orchestration --schema spec-tdd
+
+AI:  Created openspec/changes/improve-role-orchestration/
+     Schema: spec-tdd
+
+     Ready to create: proposal
+     After proposal, both specs and tdd-plan become ready in parallel.
 ```
 
 **Tips:**
 - Use descriptive names: `add-feature`, `fix-bug`, `refactor-module`
 - Avoid generic names like `update`, `changes`, `wip`
 - Schema can also be set in project config (`openspec/config.yaml`)
+- Use `--schema spec-tdd` for orthogonal spec + TDD planning
+- Use `--schema tdd` for strict TDD-only workflow
 
 ---
 

@@ -20,6 +20,13 @@ describe('instruction-loader', () => {
       expect(template).toContain('## What Changes');
     });
 
+    it('should load template from spec-tdd schema directory', () => {
+      const template = loadTemplate('spec-tdd', 'test-plan.md');
+
+      expect(template).toContain('## TDD Strategy');
+      expect(template).toContain('## Test Matrix');
+    });
+
     it('should throw TemplateLoadError for non-existent template', () => {
       expect(() => loadTemplate('spec-driven', 'nonexistent.md')).toThrow(
         TemplateLoadError
@@ -68,6 +75,19 @@ describe('instruction-loader', () => {
 
       expect(context.schemaName).toBe('spec-driven');
       expect(context.graph.getName()).toBe('spec-driven');
+    });
+
+    it('should unlock specs and tdd-plan in parallel for spec-tdd after proposal', () => {
+      const changeDir = path.join(tempDir, 'openspec', 'changes', 'parallel-change');
+      fs.mkdirSync(changeDir, { recursive: true });
+      fs.writeFileSync(path.join(changeDir, 'proposal.md'), '## Why\nParallel tracks');
+
+      const context = loadChangeContext(tempDir, 'parallel-change', 'spec-tdd');
+      const nextArtifacts = context.graph.getNextArtifacts(context.completed);
+
+      expect(nextArtifacts).toContain('specs');
+      expect(nextArtifacts).toContain('tdd-plan');
+      expect(nextArtifacts).not.toContain('design');
     });
 
     it('should detect completed artifacts', () => {
