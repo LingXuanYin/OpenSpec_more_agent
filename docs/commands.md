@@ -9,6 +9,7 @@ For workflow patterns and when to use each command, see [Workflows](workflows.md
 | Command | Purpose |
 |---------|---------|
 | `/opsx:explore` | Think through ideas before committing to a change |
+| `/opsx:deepresearch` | Deep academic research and solution analysis (no code implementation) |
 | `/opsx:new` | Start a new change |
 | `/opsx:continue` | Create the next artifact based on dependencies |
 | `/opsx:ff` | Fast-forward: create all planning artifacts at once |
@@ -74,6 +75,33 @@ AI:  Ready when you are. Run /opsx:new add-jwt-auth to begin.
 - No artifacts are created during exploration
 - Good for comparing multiple approaches before deciding
 - Can read files and search the codebase
+
+---
+
+### `/opsx:deepresearch`
+
+Deep research mode for academic investigation, outcome translation planning, and solution exploration. This mode is analysis-only.
+
+**Syntax:**
+```text
+/opsx:deepresearch [topic]
+```
+
+**Arguments:**
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `topic` | No | Research objective, decision question, or change context |
+
+**What it does:**
+- Frames research objective, assumptions, and decision criteria
+- Synthesizes evidence and highlights uncertainty
+- Compares candidate approaches and trade-offs
+- Produces recommendation + risks + next research actions
+- Explicitly blocks feature-code implementation output
+
+**Tips:**
+- Use when you need rigorous analysis before building
+- Pair with `/opsx:new` or `/opsx:apply` only after decisions are stable
 
 ---
 

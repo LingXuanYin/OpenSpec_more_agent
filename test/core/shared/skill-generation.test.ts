@@ -8,12 +8,13 @@ import {
 
 const roleProtocolAssertions = (text: string) => {
   expect(text).toContain('Role Orchestration Protocol');
+  expect(text).toContain('Mode-Specific Role Responsibilities');
   expect(text).toContain('`product`');
   expect(text).toContain('`architecture`');
   expect(text).toContain('`worker`');
   expect(text).toContain('`algorithm`');
   expect(text).toContain('Undeclared roles MUST NOT participate in execution.');
-  expect(text).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required.');
+  expect(text).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required; sub-agents MUST be created only when a concrete need is identified or when the user explicitly requests them.');
   expect(text).toContain('Before role activation, the main agent MUST assess task complexity (for example: low, medium, high) and involved knowledge domains.');
   expect(text).toContain('The main agent decides single-agent vs multi-agent execution based on complexity and domain assessment results.');
   expect(text).toContain('Role execution order MUST NOT be hardcoded.');
@@ -29,7 +30,7 @@ const roleProtocolAssertions = (text: string) => {
   expect(text).toContain('The main agent publishes a consolidated decision summary with accepted direction and rejected alternatives before execution continues.');
   expect(text).toContain('Inter-agent handoffs MUST include objective, recommendation or decision, blockers or assumptions, and next owner.');
   expect(text).toContain('Agent exchanges MUST be concise, actionable, and unambiguous.');
-  expect(text).toContain('If runtime multi-agent mode exists (for example, Codex sub-agents), use it to assign role ownership.');
+  expect(text).toContain('If runtime multi-agent mode exists (for example, Codex sub-agents), use it only when the complexity/domain assessment confirms a concrete collaboration need or when the user explicitly requests sub-agents.');
   expect(text).toContain('In Codex multi-agent mode, map core roles to explicit sub-agent owners and make mapping visible in output.');
   expect(text).toContain('When multi-agent mode is used, output MUST include concise activation rationale for active and inactive roles.');
   expect(text).toContain('If multi-agent mode is unavailable, emulate the same protocol with explicit role sections.');
@@ -54,6 +55,7 @@ describe('skill-generation', () => {
       const dirNames = templates.map(t => t.dirName);
 
       expect(dirNames).toContain('openspec-explore');
+      expect(dirNames).toContain('openspec-deepresearch');
       expect(dirNames).toContain('openspec-new-change');
       expect(dirNames).toContain('openspec-continue-change');
       expect(dirNames).toContain('openspec-apply-change');
@@ -118,6 +120,8 @@ describe('skill-generation', () => {
     it('should include role orchestration protocol in workflow skills', () => {
       const templates = getSkillTemplates();
       const workflowSkills = [
+        'openspec-explore',
+        'openspec-deepresearch',
         'openspec-new-change',
         'openspec-continue-change',
         'openspec-apply-change',
@@ -128,11 +132,25 @@ describe('skill-generation', () => {
         'openspec-verify-change',
         'openspec-onboard',
       ];
+      const expectedModeMarkerBySkill: Record<string, string> = {
+        'openspec-explore': '/opsx:explore',
+        'openspec-deepresearch': '/opsx:deepresearch',
+        'openspec-new-change': '/opsx:new',
+        'openspec-continue-change': '/opsx:continue',
+        'openspec-apply-change': '/opsx:apply',
+        'openspec-ff-change': '/opsx:ff',
+        'openspec-sync-specs': '/opsx:sync',
+        'openspec-archive-change': '/opsx:archive',
+        'openspec-bulk-archive-change': '/opsx:bulk-archive',
+        'openspec-verify-change': '/opsx:verify',
+        'openspec-onboard': '/opsx:onboard',
+      };
 
       for (const skillName of workflowSkills) {
         const entry = templates.find((template) => template.dirName === skillName);
         expect(entry).toBeDefined();
         roleProtocolAssertions(entry!.template.instructions);
+        expect(entry!.template.instructions).toContain(expectedModeMarkerBySkill[skillName]);
       }
     });
   });
@@ -155,6 +173,7 @@ describe('skill-generation', () => {
       const ids = templates.map(t => t.id);
 
       expect(ids).toContain('explore');
+      expect(ids).toContain('deepresearch');
       expect(ids).toContain('new');
       expect(ids).toContain('continue');
       expect(ids).toContain('apply');
@@ -235,12 +254,13 @@ describe('skill-generation', () => {
 
     it('should include role orchestration protocol in workflow commands', () => {
       const contents = getCommandContents();
-      const workflowCommands = ['new', 'continue', 'apply', 'ff', 'sync', 'archive', 'bulk-archive', 'verify', 'onboard'];
+      const workflowCommands = ['explore', 'deepresearch', 'new', 'continue', 'apply', 'ff', 'sync', 'archive', 'bulk-archive', 'verify', 'onboard'];
 
       for (const commandId of workflowCommands) {
         const entry = contents.find((content) => content.id === commandId);
         expect(entry).toBeDefined();
         roleProtocolAssertions(entry!.body);
+        expect(entry!.body).toContain(`/opsx:${commandId}`);
       }
     });
   });

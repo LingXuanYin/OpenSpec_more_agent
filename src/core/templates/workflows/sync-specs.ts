@@ -5,7 +5,7 @@
  * templates file into workflow-focused modules.
  */
 import type { SkillTemplate, CommandTemplate } from '../types.js';
-import { ROLE_ORCHESTRATION_PROTOCOL } from './role-orchestration-protocol.js';
+import { ROLE_ORCHESTRATION_PROTOCOL, getModeSpecificRoleResponsibilities } from './role-orchestration-protocol.js';
 
 export function getSyncSpecsSkillTemplate(): SkillTemplate {
   return {
@@ -14,6 +14,7 @@ export function getSyncSpecsSkillTemplate(): SkillTemplate {
     instructions: `Sync delta specs from a change to main specs.
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('sync')}
 
 This is an **agent-driven** operation - you will read delta specs and directly edit main specs to apply the changes. This allows intelligent merging (e.g., adding a scenario without copying the entire requirement).
 
@@ -155,6 +156,7 @@ export function getOpsxSyncCommandTemplate(): CommandTemplate {
     content: `Sync delta specs from a change to main specs.
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('sync')}
 
 This is an **agent-driven** operation - you will read delta specs and directly edit main specs to apply the changes. This allows intelligent merging (e.g., adding a scenario without copying the entire requirement).
 

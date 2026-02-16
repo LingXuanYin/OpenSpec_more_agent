@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Agent Skill Templates
  *
  * Compatibility facade that re-exports split workflow template modules.
@@ -7,6 +7,7 @@
 export type { SkillTemplate, CommandTemplate } from './types.js';
 
 export { getExploreSkillTemplate, getOpsxExploreCommandTemplate } from './workflows/explore.js';
+export { getDeepResearchSkillTemplate, getOpsxDeepResearchCommandTemplate } from './workflows/deepresearch.js';
 export { getNewChangeSkillTemplate, getOpsxNewCommandTemplate } from './workflows/new-change.js';
 export { getContinueChangeSkillTemplate, getOpsxContinueCommandTemplate } from './workflows/continue-change.js';
 export { getApplyChangeSkillTemplate, getOpsxApplyCommandTemplate } from './workflows/apply-change.js';

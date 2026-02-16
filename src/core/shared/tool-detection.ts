@@ -13,6 +13,7 @@ import { AI_TOOLS } from '../config.js';
  */
 export const SKILL_NAMES = [
   'openspec-explore',
+  'openspec-deepresearch',
   'openspec-new-change',
   'openspec-continue-change',
   'openspec-apply-change',
@@ -32,6 +33,7 @@ export type SkillName = (typeof SKILL_NAMES)[number];
  */
 export const COMMAND_IDS = [
   'explore',
+  'deepresearch',
   'new',
   'continue',
   'apply',
@@ -52,7 +54,7 @@ export type CommandId = (typeof COMMAND_IDS)[number];
 export interface ToolSkillStatus {
   /** Whether the tool has any skills configured */
   configured: boolean;
-  /** Whether all skills are configured */
+  /** Whether all generated skills are configured */
   fullyConfigured: boolean;
   /** Number of skills currently configured */
   skillCount: number;

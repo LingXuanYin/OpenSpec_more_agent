@@ -71,6 +71,7 @@ Finally /opsx-apply to implement`;
       'bulk-archive',
       'verify',
       'explore',
+      'deepresearch',
       'onboard',
     ];
 

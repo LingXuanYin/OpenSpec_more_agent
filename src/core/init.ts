@@ -708,6 +708,9 @@ export class InitCommand {
     } else {
       console.log("Done. Run 'openspec config profile' to configure your workflows.");
     }
+    if (activeWorkflows.includes('deepresearch')) {
+      console.log('  /opsx:deepresearch  Research and option analysis (no implementation)');
+    }
 
     // Links
     console.log();

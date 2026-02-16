@@ -5,7 +5,7 @@
  * templates file into workflow-focused modules.
  */
 import type { SkillTemplate, CommandTemplate } from '../types.js';
-import { ROLE_ORCHESTRATION_PROTOCOL } from './role-orchestration-protocol.js';
+import { ROLE_ORCHESTRATION_PROTOCOL, getModeSpecificRoleResponsibilities } from './role-orchestration-protocol.js';
 
 export function getNewChangeSkillTemplate(): SkillTemplate {
   return {
@@ -14,6 +14,7 @@ export function getNewChangeSkillTemplate(): SkillTemplate {
     instructions: `Start a new change using the experimental artifact-driven approach.
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('new')}
 
 **Input**: The user's request should include a change name (kebab-case) OR a description of what they want to build.
 
@@ -91,6 +92,7 @@ export function getOpsxNewCommandTemplate(): CommandTemplate {
     content: `Start a new change using the experimental artifact-driven approach.
 
 ${ROLE_ORCHESTRATION_PROTOCOL}
+${getModeSpecificRoleResponsibilities('new')}
 
 **Input**: The argument after \`/opsx:new\` is the change name (kebab-case), OR a description of what the user wants to build.
 

@@ -176,12 +176,14 @@ Old instructions content
 
       // Verify non-core skills are NOT created
       const nonCoreSkillNames = [
+        'openspec-deepresearch',
         'openspec-new-change',
         'openspec-continue-change',
         'openspec-ff-change',
         'openspec-sync-specs',
         'openspec-bulk-archive-change',
         'openspec-verify-change',
+        'openspec-onboard',
       ];
 
       for (const skillName of nonCoreSkillNames) {
@@ -243,7 +245,7 @@ Old instructions content
       }
 
       // Verify non-core commands are NOT created
-      const nonCoreCommandIds = ['new', 'continue', 'ff', 'sync', 'bulk-archive', 'verify'];
+      const nonCoreCommandIds = ['deepresearch', 'new', 'continue', 'ff', 'sync', 'bulk-archive', 'verify', 'onboard'];
       for (const cmdId of nonCoreCommandIds) {
         const cmdFile = path.join(commandsDir, `${cmdId}.md`);
         const exists = await FileSystemUtils.fileExists(cmdFile);
@@ -265,6 +267,8 @@ Old instructions content
 
       const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
       const workflowCommandFiles = [
+        path.join(commandsDir, 'explore.md'),
+        path.join(commandsDir, 'deepresearch.md'),
         path.join(commandsDir, 'new.md'),
         path.join(commandsDir, 'continue.md'),
         path.join(commandsDir, 'apply.md'),
@@ -279,8 +283,9 @@ Old instructions content
       for (const commandFile of workflowCommandFiles) {
         const content = await fs.readFile(commandFile, 'utf-8');
         expect(content).toContain('Role Orchestration Protocol');
+        expect(content).toContain('Mode-Specific Role Responsibilities');
         expect(content).toContain('Before role activation, the main agent MUST assess task complexity (for example: low, medium, high) and involved knowledge domains.');
-        expect(content).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required.');
+        expect(content).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required; sub-agents MUST be created only when a concrete need is identified or when the user explicitly requests them.');
         expect(content).toContain('The main agent decides single-agent vs multi-agent execution based on complexity and domain assessment results.');
         expect(content).toContain('Role execution order MUST NOT be hardcoded.');
         expect(content).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
@@ -289,6 +294,12 @@ Old instructions content
         expect(content).toContain('MUST NOT execute work owned by another role.');
         expect(content).toContain('In Codex multi-agent mode, map core roles to explicit sub-agent owners and make mapping visible in output.');
         expect(content).toContain('When multi-agent mode is used, output MUST include concise activation rationale for active and inactive roles.');
+        if (commandFile.endsWith('explore.md')) {
+          expect(content).toContain('MUST NOT implement feature code in explore mode.');
+        }
+        if (commandFile.endsWith('deepresearch.md')) {
+          expect(content).toContain('MUST NOT produce feature implementation code in deepresearch mode.');
+        }
       }
     });
   });
@@ -583,6 +594,8 @@ Old instructions content
     it('should refresh workflow skills with role orchestration protocol', async () => {
       const skillsDir = path.join(testDir, '.claude', 'skills');
       const workflowSkills = [
+        'openspec-explore',
+        'openspec-deepresearch',
         'openspec-new-change',
         'openspec-continue-change',
         'openspec-apply-change',
@@ -604,18 +617,25 @@ Old instructions content
       for (const skillName of workflowSkills) {
         const skillContent = await fs.readFile(path.join(skillsDir, skillName, 'SKILL.md'), 'utf-8');
         expect(skillContent).toContain('Role Orchestration Protocol');
+        expect(skillContent).toContain('Mode-Specific Role Responsibilities');
         expect(skillContent).toContain('`product`');
         expect(skillContent).toContain('`architecture`');
         expect(skillContent).toContain('`worker`');
         expect(skillContent).toContain('`algorithm`');
         expect(skillContent).toContain('Undeclared roles MUST NOT participate in execution.');
         expect(skillContent).toContain('Before role activation, the main agent MUST assess task complexity (for example: low, medium, high) and involved knowledge domains.');
-        expect(skillContent).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required.');
+        expect(skillContent).toContain('The main agent decides whether multi-agent collaboration is needed, which roles are active, and whether temporary roles are required; sub-agents MUST be created only when a concrete need is identified or when the user explicitly requests them.');
         expect(skillContent).toContain('The main agent decides single-agent vs multi-agent execution based on complexity and domain assessment results.');
         expect(skillContent).toContain('If a design role is active, the main agent MUST assign at least one corresponding review role.');
         expect(skillContent).toContain('When multiple roles discuss a decision, establish an agent discussion group with a shared context packet (problem frame, constraints, decision scope).');
         expect(skillContent).toContain('Boundary violations MUST be flagged and reassigned to the owning role.');
         expect(skillContent).toContain('When multi-agent mode is used, output MUST include concise activation rationale for active and inactive roles.');
+        if (skillName === 'openspec-explore') {
+          expect(skillContent).toContain('MUST NOT implement feature code in explore mode.');
+        }
+        if (skillName === 'openspec-deepresearch') {
+          expect(skillContent).toContain('MUST NOT produce feature implementation code in deepresearch mode.');
+        }
       }
     });
   });
@@ -1401,6 +1421,7 @@ More user content after markers.
       // Legacy upgrade uses unfiltered templates (all skills), verify all exist
       const skillNames = [
         'openspec-explore',
+        'openspec-deepresearch',
         'openspec-new-change',
         'openspec-continue-change',
         'openspec-apply-change',
@@ -1409,6 +1430,8 @@ More user content after markers.
         'openspec-archive-change',
         'openspec-bulk-archive-change',
         'openspec-verify-change',
+        'openspec-onboard',
+        'openspec-propose',
       ];
 
       const skillsDir = path.join(testDir, '.claude', 'skills');
