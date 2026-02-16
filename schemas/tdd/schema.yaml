@@ -1,0 +1,38 @@
+name: tdd
+version: 1
+description: Test-driven workflow focused on proving behavior before implementation
+artifacts:
+  - id: tests
+    generates: tests.md
+    description: Failing-test-first plan and behavior checklist
+    template: tests.md
+    instruction: |
+      Define behavior as tests first.
+      Keep tests concrete, deterministic, and implementation-independent.
+    requires: []
+
+  - id: implementation
+    generates: implementation.md
+    description: Minimal implementation slices mapped to test outcomes
+    template: implementation.md
+    instruction: |
+      Describe the smallest implementation slices needed to pass tests.
+      Avoid speculative abstractions.
+    requires:
+      - tests
+
+  - id: docs
+    generates: docs.md
+    description: User/developer docs updates required by behavior changes
+    template: docs.md
+    instruction: |
+      Capture the documentation changes needed after implementation is verified.
+    requires:
+      - implementation
+
+apply:
+  requires: [implementation]
+  tracks: null
+  instruction: |
+    Execute strict RED-GREEN-REFACTOR cycles based on tests.md and implementation.md.
+    Do not add production behavior without first writing and observing a failing test.

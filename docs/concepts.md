@@ -410,15 +410,15 @@ artifacts:
 
 ### Built-in Schemas
 
-**spec-driven** (default)
+**spec-tdd** (default)
 
-The standard workflow for spec-driven development:
+The default orthogonal planning workflow:
 
 ```
-proposal → specs → design → tasks → implement
+proposal → specs + tdd-plan → design → tasks → implement
 ```
 
-Best for: Most feature work where you want to agree on specs before implementation.
+Best for: Teams that want spec planning and TDD planning to run in parallel before implementation.
 
 ### Custom Schemas
 

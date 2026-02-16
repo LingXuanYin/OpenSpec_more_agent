@@ -1,4 +1,4 @@
-# OPSX Workflow
+﻿# OPSX Workflow
 
 > Feedback welcome on [Discord](https://discord.gg/YctCnvvshC).
 
@@ -6,40 +6,40 @@
 
 OPSX is now the standard workflow for OpenSpec.
 
-It's a **fluid, iterative workflow** for OpenSpec changes. No more rigid phases — just actions you can take anytime.
+It's a **fluid, iterative workflow** for OpenSpec changes. No more rigid phases 鈥?just actions you can take anytime.
 
 ## Why This Exists
 
 The legacy OpenSpec workflow works, but it's **locked down**:
 
-- **Instructions are hardcoded** — buried in TypeScript, you can't change them
-- **All-or-nothing** — one big command creates everything, can't test individual pieces
-- **Fixed structure** — same workflow for everyone, no customization
-- **Black box** — when AI output is bad, you can't tweak the prompts
+- **Instructions are hardcoded** 鈥?buried in TypeScript, you can't change them
+- **All-or-nothing** 鈥?one big command creates everything, can't test individual pieces
+- **Fixed structure** 鈥?same workflow for everyone, no customization
+- **Black box** 鈥?when AI output is bad, you can't tweak the prompts
 
 **OPSX opens it up.** Now anyone can:
 
-1. **Experiment with instructions** — edit a template, see if the AI does better
-2. **Test granularly** — validate each artifact's instructions independently
-3. **Customize workflows** — define your own artifacts and dependencies
-4. **Iterate quickly** — change a template, test immediately, no rebuild
+1. **Experiment with instructions** 鈥?edit a template, see if the AI does better
+2. **Test granularly** 鈥?validate each artifact's instructions independently
+3. **Customize workflows** 鈥?define your own artifacts and dependencies
+4. **Iterate quickly** 鈥?change a template, test immediately, no rebuild
 
 ```
 Legacy workflow:                      OPSX:
-┌────────────────────────┐           ┌────────────────────────┐
-│  Hardcoded in package  │           │  schema.yaml           │◄── You edit this
-│  (can't change)        │           │  templates/*.md        │◄── Or this
-│        ↓               │           │        ↓               │
-│  Wait for new release  │           │  Instant effect        │
-│        ↓               │           │        ↓               │
-│  Hope it's better      │           │  Test it yourself      │
-└────────────────────────┘           └────────────────────────┘
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?          鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+鈹? Hardcoded in package  鈹?          鈹? schema.yaml           鈹傗梽鈹€鈹€ You edit this
+鈹? (can't change)        鈹?          鈹? templates/*.md        鈹傗梽鈹€鈹€ Or this
+鈹?       鈫?              鈹?          鈹?       鈫?              鈹?
+鈹? Wait for new release  鈹?          鈹? Instant effect        鈹?
+鈹?       鈫?              鈹?          鈹?       鈫?              鈹?
+鈹? Hope it's better      鈹?          鈹? Test it yourself      鈹?
+鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?          鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
 ```
 
 **This is for everyone:**
-- **Teams** — create workflows that match how you actually work
-- **Power users** — tweak prompts to get better AI outputs for your codebase
-- **OpenSpec contributors** — experiment with new approaches without releases
+- **Teams** 鈥?create workflows that match how you actually work
+- **Power users** 鈥?tweak prompts to get better AI outputs for your codebase
+- **OpenSpec contributors** 鈥?experiment with new approaches without releases
 
 We're all still learning what works best. OPSX lets us learn together.
 
@@ -49,17 +49,17 @@ We're all still learning what works best. OPSX lets us learn together.
 You're "in planning phase", then "in implementation phase", then "done". But real work doesn't work that way. You implement something, realize your design was wrong, need to update specs, continue implementing. Linear phases fight against how work actually happens.
 
 **OPSX approach:**
-- **Actions, not phases** — create, implement, update, archive — do any of them anytime
-- **Dependencies are enablers** — they show what's possible, not what's required next
+- **Actions, not phases** 鈥?create, implement, update, archive 鈥?do any of them anytime
+- **Dependencies are enablers** 鈥?they show what's possible, not what's required next
 
 ```
-  proposal ──→ specs ──→ design ──→ tasks ──→ implement
+  proposal 鈹€鈹€鈫?specs 鈹€鈹€鈫?design 鈹€鈹€鈫?tasks 鈹€鈹€鈫?implement
 ```
 
 ## Setup
 
 ```bash
-# Make sure you have openspec installed — skills are automatically generated
+# Make sure you have openspec installed 鈥?skills are automatically generated
 openspec init
 ```
 
@@ -77,7 +77,7 @@ Config is created during `openspec init`, or manually:
 
 ```yaml
 # openspec/config.yaml
-schema: spec-driven
+schema: spec-tdd
 
 context: |
   Tech stack: TypeScript, React, Node.js
@@ -99,7 +99,7 @@ rules:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `schema` | string | Default schema for new changes (e.g., `spec-driven`) |
+| `schema` | string | Default schema for new changes (e.g., `spec-tdd`) |
 | `context` | string | Project context injected into all artifact instructions |
 | `rules` | object | Per-artifact rules, keyed by artifact ID |
 
@@ -109,7 +109,7 @@ rules:
 1. CLI flag (`--schema <name>`)
 2. Change metadata (`.openspec.yaml` in change directory)
 3. Project config (`openspec/config.yaml`)
-4. Default (`spec-driven`)
+4. Default (`spec-tdd`)
 
 **Context injection:**
 - Context is prepended to every artifact's instructions
@@ -123,11 +123,12 @@ rules:
 
 ### Artifact IDs by Schema
 
-**spec-driven** (default):
-- `proposal` — Change proposal
-- `specs` — Specifications
-- `design` — Technical design
-- `tasks` — Implementation tasks
+**spec-tdd** (default):
+- `proposal` - Change proposal
+- `specs` - Specifications
+- `tdd-plan` - Test strategy and RED-GREEN-REFACTOR plan
+- `design` - Technical design
+- `tasks` - Implementation tasks
 
 ### Config Validation
 
@@ -159,9 +160,9 @@ rules:
 | `/opsx:deepresearch` | Run rigorous research/analysis for academic outcomes and solution options (no code implementation) |
 | `/opsx:new` | Start a new change |
 | `/opsx:continue` | Create the next artifact (based on what's ready) |
-| `/opsx:ff` | Fast-forward — create all planning artifacts at once |
+| `/opsx:ff` | Fast-forward 鈥?create all planning artifacts at once |
 | `/opsx:apply` | Implement tasks, updating artifacts as needed |
-| `/opsx:sync` | Sync delta specs to main (optional—archive prompts if needed) |
+| `/opsx:sync` | Sync delta specs to main (optional鈥攁rchive prompts if needed) |
 | `/opsx:archive` | Archive when done |
 
 ## Role-Based Agent Orchestration
@@ -246,9 +247,9 @@ You can always edit your proposal or specs before implementation. But when does 
 ### What a Proposal Captures
 
 A proposal defines three things:
-1. **Intent** — What problem are you solving?
-2. **Scope** — What's in/out of bounds?
-3. **Approach** — How will you solve it?
+1. **Intent** 鈥?What problem are you solving?
+2. **Scope** 鈥?What's in/out of bounds?
+3. **Approach** 鈥?How will you solve it?
 
 The question is: which changed, and by how much?
 
@@ -261,48 +262,48 @@ The question is: which changed, and by how much?
 
 **Scope narrows**
 - You realize full scope is too big, want to ship MVP first
-- "Add dark mode" → "Add dark mode toggle (system preference in v2)"
+- "Add dark mode" 鈫?"Add dark mode toggle (system preference in v2)"
 
 **Learning-driven corrections**
 - Codebase isn't structured how you thought
 - A dependency doesn't work as expected
-- "Use CSS variables" → "Use Tailwind's dark: prefix instead"
+- "Use CSS variables" 鈫?"Use Tailwind's dark: prefix instead"
 
 ### Start a New Change When:
 
 **Intent fundamentally changed**
 - The problem itself is different now
-- "Add dark mode" → "Add comprehensive theme system with custom colors, fonts, spacing"
+- "Add dark mode" 鈫?"Add comprehensive theme system with custom colors, fonts, spacing"
 
 **Scope exploded**
 - Change grew so much it's essentially different work
 - Original proposal would be unrecognizable after updates
-- "Fix login bug" → "Rewrite auth system"
+- "Fix login bug" 鈫?"Rewrite auth system"
 
 **Original is completable**
 - The original change can be marked "done"
 - New work stands alone, not a refinement
-- Complete "Add dark mode MVP" → Archive → New change "Enhance dark mode"
+- Complete "Add dark mode MVP" 鈫?Archive 鈫?New change "Enhance dark mode"
 
 ### The Heuristics
 
 ```
-                        ┌─────────────────────────────────────┐
-                        │     Is this the same work?          │
-                        └──────────────┬──────────────────────┘
-                                       │
-                    ┌──────────────────┼──────────────────┐
-                    │                  │                  │
-                    ▼                  ▼                  ▼
+                        鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+                        鈹?    Is this the same work?          鈹?
+                        鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+                                       鈹?
+                    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹尖攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+                    鈹?                 鈹?                 鈹?
+                    鈻?                 鈻?                 鈻?
              Same intent?      >50% overlap?      Can original
              Same problem?     Same scope?        be "done" without
-                    │                  │          these changes?
-                    │                  │                  │
-          ┌────────┴────────┐  ┌──────┴──────┐   ┌───────┴───────┐
-          │                 │  │             │   │               │
+                    鈹?                 鈹?         these changes?
+                    鈹?                 鈹?                 鈹?
+          鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹粹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹粹攢鈹€鈹€鈹€鈹€鈹€鈹?  鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹粹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+          鈹?                鈹? 鈹?            鈹?  鈹?              鈹?
          YES               NO YES           NO  NO              YES
-          │                 │  │             │   │               │
-          ▼                 ▼  ▼             ▼   ▼               ▼
+          鈹?                鈹? 鈹?            鈹?  鈹?              鈹?
+          鈻?                鈻? 鈻?            鈻?  鈻?              鈻?
        UPDATE            NEW  UPDATE       NEW  UPDATE          NEW
 ```
 
@@ -330,7 +331,7 @@ Think of it like git branches:
 | | Legacy (`/openspec:proposal`) | OPSX (`/opsx:*`) |
 |---|---|---|
 | **Structure** | One big proposal document | Discrete artifacts with dependencies |
-| **Workflow** | Linear phases: plan → implement → archive | Fluid actions — do anything anytime |
+| **Workflow** | Linear phases: plan 鈫?implement 鈫?archive | Fluid actions 鈥?do anything anytime |
 | **Iteration** | Awkward to go back | Update artifacts as you learn |
 | **Customization** | Fixed structure | Schema-driven (define your own artifacts) |
 
@@ -343,45 +344,45 @@ This section explains how OPSX works under the hood and how it compares to the l
 ### Philosophy: Phases vs Actions
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         LEGACY WORKFLOW                                      │
-│                    (Phase-Locked, All-or-Nothing)                           │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│   ┌──────────────┐      ┌──────────────┐      ┌──────────────┐             │
-│   │   PLANNING   │ ───► │ IMPLEMENTING │ ───► │   ARCHIVING  │             │
-│   │    PHASE     │      │    PHASE     │      │    PHASE     │             │
-│   └──────────────┘      └──────────────┘      └──────────────┘             │
-│         │                     │                     │                       │
-│         ▼                     ▼                     ▼                       │
-│   /openspec:proposal   /openspec:apply      /openspec:archive              │
-│                                                                             │
-│   • Creates ALL artifacts at once                                          │
-│   • Can't go back to update specs during implementation                    │
-│   • Phase gates enforce linear progression                                  │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+鈹?                        LEGACY WORKFLOW                                      鈹?
+鈹?                   (Phase-Locked, All-or-Nothing)                           鈹?
+鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+鈹?                                                                            鈹?
+鈹?  鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?     鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?     鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?            鈹?
+鈹?  鈹?  PLANNING   鈹?鈹€鈹€鈹€鈻?鈹?IMPLEMENTING 鈹?鈹€鈹€鈹€鈻?鈹?  ARCHIVING  鈹?            鈹?
+鈹?  鈹?   PHASE     鈹?     鈹?   PHASE     鈹?     鈹?   PHASE     鈹?            鈹?
+鈹?  鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?     鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?     鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?            鈹?
+鈹?        鈹?                    鈹?                    鈹?                      鈹?
+鈹?        鈻?                    鈻?                    鈻?                      鈹?
+鈹?  /openspec:proposal   /openspec:apply      /openspec:archive              鈹?
+鈹?                                                                            鈹?
+鈹?  鈥?Creates ALL artifacts at once                                          鈹?
+鈹?  鈥?Can't go back to update specs during implementation                    鈹?
+鈹?  鈥?Phase gates enforce linear progression                                  鈹?
+鈹?                                                                            鈹?
+鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
 
 
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                            OPSX WORKFLOW                                     │
-│                      (Fluid Actions, Iterative)                             │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│              ┌────────────────────────────────────────────┐                 │
-│              │           ACTIONS (not phases)             │                 │
-│              │                                            │                 │
-│              │   new ◄──► continue ◄──► apply ◄──► archive │                 │
-│              │    │          │           │           │    │                 │
-│              │    └──────────┴───────────┴───────────┘    │                 │
-│              │              any order                     │                 │
-│              └────────────────────────────────────────────┘                 │
-│                                                                             │
-│   • Create artifacts one at a time OR fast-forward                         │
-│   • Update specs/design/tasks during implementation                        │
-│   • Dependencies enable progress, phases don't exist                       │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+鈹?                           OPSX WORKFLOW                                     鈹?
+鈹?                     (Fluid Actions, Iterative)                             鈹?
+鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+鈹?                                                                            鈹?
+鈹?             鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?                鈹?
+鈹?             鈹?          ACTIONS (not phases)             鈹?                鈹?
+鈹?             鈹?                                           鈹?                鈹?
+鈹?             鈹?  new 鈼勨攢鈹€鈻?continue 鈼勨攢鈹€鈻?apply 鈼勨攢鈹€鈻?archive 鈹?                鈹?
+鈹?             鈹?   鈹?         鈹?          鈹?          鈹?   鈹?                鈹?
+鈹?             鈹?   鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹粹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹粹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?   鈹?                鈹?
+鈹?             鈹?             any order                     鈹?                鈹?
+鈹?             鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?                鈹?
+鈹?                                                                            鈹?
+鈹?  鈥?Create artifacts one at a time OR fast-forward                         鈹?
+鈹?  鈥?Update specs/design/tasks during implementation                        鈹?
+鈹?  鈥?Dependencies enable progress, phases don't exist                       鈹?
+鈹?                                                                            鈹?
+鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
 ```
 
 ### Component Architecture
@@ -389,59 +390,59 @@ This section explains how OPSX works under the hood and how it compares to the l
 **Legacy workflow** uses hardcoded templates in TypeScript:
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                      LEGACY WORKFLOW COMPONENTS                              │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│   Hardcoded Templates (TypeScript strings)                                  │
-│                    │                                                        │
-│                    ▼                                                        │
-│   Configurators (18+ classes, one per editor)                               │
-│                    │                                                        │
-│                    ▼                                                        │
-│   Generated Command Files (.claude/commands/openspec/*.md)                  │
-│                                                                             │
-│   • Fixed structure, no artifact awareness                                  │
-│   • Change requires code modification + rebuild                             │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+鈹?                     LEGACY WORKFLOW COMPONENTS                              鈹?
+鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+鈹?                                                                            鈹?
+鈹?  Hardcoded Templates (TypeScript strings)                                  鈹?
+鈹?                   鈹?                                                       鈹?
+鈹?                   鈻?                                                       鈹?
+鈹?  Configurators (18+ classes, one per editor)                               鈹?
+鈹?                   鈹?                                                       鈹?
+鈹?                   鈻?                                                       鈹?
+鈹?  Generated Command Files (.claude/commands/openspec/*.md)                  鈹?
+鈹?                                                                            鈹?
+鈹?  鈥?Fixed structure, no artifact awareness                                  鈹?
+鈹?  鈥?Change requires code modification + rebuild                             鈹?
+鈹?                                                                            鈹?
+鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
 ```
 
 **OPSX** uses external schemas and a dependency graph engine:
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         OPSX COMPONENTS                                      │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│   Schema Definitions (YAML)                                                 │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │  name: spec-driven                                                  │   │
-│   │  artifacts:                                                         │   │
-│   │    - id: proposal                                                   │   │
-│   │      generates: proposal.md                                         │   │
-│   │      requires: []              ◄── Dependencies                     │   │
-│   │    - id: specs                                                      │   │
-│   │      generates: specs/**/*.md  ◄── Glob patterns                    │   │
-│   │      requires: [proposal]      ◄── Enables after proposal           │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-│                    │                                                        │
-│                    ▼                                                        │
-│   Artifact Graph Engine                                                     │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │  • Topological sort (dependency ordering)                           │   │
-│   │  • State detection (filesystem existence)                           │   │
-│   │  • Rich instruction generation (templates + context)                │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-│                    │                                                        │
-│                    ▼                                                        │
-│   Skill Files (.claude/skills/openspec-*/SKILL.md)                          │
-│                                                                             │
-│   • Cross-editor compatible (Claude Code, Cursor, Windsurf)                 │
-│   • Skills query CLI for structured data                                    │
-│   • Fully customizable via schema files                                     │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+鈹?                        OPSX COMPONENTS                                      鈹?
+鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+鈹?                                                                            鈹?
+鈹?  Schema Definitions (YAML)                                                 鈹?
+鈹?  鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?  鈹?
+鈹?  鈹? name: spec-driven                                                  鈹?  鈹?
+鈹?  鈹? artifacts:                                                         鈹?  鈹?
+鈹?  鈹?   - id: proposal                                                   鈹?  鈹?
+鈹?  鈹?     generates: proposal.md                                         鈹?  鈹?
+鈹?  鈹?     requires: []              鈼勨攢鈹€ Dependencies                     鈹?  鈹?
+鈹?  鈹?   - id: specs                                                      鈹?  鈹?
+鈹?  鈹?     generates: specs/**/*.md  鈼勨攢鈹€ Glob patterns                    鈹?  鈹?
+鈹?  鈹?     requires: [proposal]      鈼勨攢鈹€ Enables after proposal           鈹?  鈹?
+鈹?  鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?  鈹?
+鈹?                   鈹?                                                       鈹?
+鈹?                   鈻?                                                       鈹?
+鈹?  Artifact Graph Engine                                                     鈹?
+鈹?  鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?  鈹?
+鈹?  鈹? 鈥?Topological sort (dependency ordering)                           鈹?  鈹?
+鈹?  鈹? 鈥?State detection (filesystem existence)                           鈹?  鈹?
+鈹?  鈹? 鈥?Rich instruction generation (templates + context)                鈹?  鈹?
+鈹?  鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?  鈹?
+鈹?                   鈹?                                                       鈹?
+鈹?                   鈻?                                                       鈹?
+鈹?  Skill Files (.claude/skills/openspec-*/SKILL.md)                          鈹?
+鈹?                                                                            鈹?
+鈹?  鈥?Cross-editor compatible (Claude Code, Cursor, Windsurf)                 鈹?
+鈹?  鈥?Skills query CLI for structured data                                    鈹?
+鈹?  鈥?Fully customizable via schema files                                     鈹?
+鈹?                                                                            鈹?
+鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
 ```
 
 ### Dependency Graph Model
@@ -451,136 +452,136 @@ Artifacts form a directed acyclic graph (DAG). Dependencies are **enablers**, no
 ```
                               proposal
                              (root node)
-                                  │
-                    ┌─────────────┴─────────────┐
-                    │                           │
-                    ▼                           ▼
+                                  鈹?
+                    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹粹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+                    鈹?                          鈹?
+                    鈻?                          鈻?
                  specs                       design
               (requires:                  (requires:
                proposal)                   proposal)
-                    │                           │
-                    └─────────────┬─────────────┘
-                                  │
-                                  ▼
+                    鈹?                          鈹?
+                    鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+                                  鈹?
+                                  鈻?
                                tasks
                            (requires:
                            specs, design)
-                                  │
-                                  ▼
-                          ┌──────────────┐
-                          │ APPLY PHASE  │
-                          │ (requires:   │
-                          │  tasks)      │
-                          └──────────────┘
+                                  鈹?
+                                  鈻?
+                          鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+                          鈹?APPLY PHASE  鈹?
+                          鈹?(requires:   鈹?
+                          鈹? tasks)      鈹?
+                          鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
 ```
 
 **State transitions:**
 
 ```
-   BLOCKED ────────────────► READY ────────────────► DONE
-      │                        │                       │
+   BLOCKED 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈻?READY 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈻?DONE
+      鈹?                       鈹?                      鈹?
    Missing                  All deps               File exists
    dependencies             are DONE               on filesystem
 ```
 
 ### Information Flow
 
-**Legacy workflow** — agent receives static instructions:
+**Legacy workflow** 鈥?agent receives static instructions:
 
 ```
   User: "/openspec:proposal"
-           │
-           ▼
-  ┌─────────────────────────────────────────┐
-  │  Static instructions:                   │
-  │  • Create proposal.md                   │
-  │  • Create tasks.md                      │
-  │  • Create design.md                     │
-  │  • Create specs/<capability>/spec.md    │
-  │                                         │
-  │  No awareness of what exists or         │
-  │  dependencies between artifacts         │
-  └─────────────────────────────────────────┘
-           │
-           ▼
+           鈹?
+           鈻?
+  鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+  鈹? Static instructions:                   鈹?
+  鈹? 鈥?Create proposal.md                   鈹?
+  鈹? 鈥?Create tasks.md                      鈹?
+  鈹? 鈥?Create design.md                     鈹?
+  鈹? 鈥?Create specs/<capability>/spec.md    鈹?
+  鈹?                                        鈹?
+  鈹? No awareness of what exists or         鈹?
+  鈹? dependencies between artifacts         鈹?
+  鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+           鈹?
+           鈻?
   Agent creates ALL artifacts in one go
 ```
 
-**OPSX** — agent queries for rich context:
+**OPSX** 鈥?agent queries for rich context:
 
 ```
   User: "/opsx:continue"
-           │
-           ▼
-  ┌──────────────────────────────────────────────────────────────────────────┐
-  │  Step 1: Query current state                                             │
-  │  ┌────────────────────────────────────────────────────────────────────┐  │
-  │  │  $ openspec status --change "add-auth" --json                      │  │
-  │  │                                                                    │  │
-  │  │  {                                                                 │  │
-  │  │    "artifacts": [                                                  │  │
-  │  │      {"id": "proposal", "status": "done"},                         │  │
-  │  │      {"id": "specs", "status": "ready"},      ◄── First ready      │  │
-  │  │      {"id": "design", "status": "ready"},                          │  │
-  │  │      {"id": "tasks", "status": "blocked", "missingDeps": ["specs"]}│  │
-  │  │    ]                                                               │  │
-  │  │  }                                                                 │  │
-  │  └────────────────────────────────────────────────────────────────────┘  │
-  │                                                                          │
-  │  Step 2: Get rich instructions for ready artifact                        │
-  │  ┌────────────────────────────────────────────────────────────────────┐  │
-  │  │  $ openspec instructions specs --change "add-auth" --json          │  │
-  │  │                                                                    │  │
-  │  │  {                                                                 │  │
-  │  │    "template": "# Specification\n\n## ADDED Requirements...",      │  │
-  │  │    "dependencies": [{"id": "proposal", "path": "...", "done": true}│  │
-  │  │    "unlocks": ["tasks"]                                            │  │
-  │  │  }                                                                 │  │
-  │  └────────────────────────────────────────────────────────────────────┘  │
-  │                                                                          │
-  │  Step 3: Read dependencies → Create ONE artifact → Show what's unlocked  │
-  └──────────────────────────────────────────────────────────────────────────┘
+           鈹?
+           鈻?
+  鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+  鈹? Step 1: Query current state                                             鈹?
+  鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹?
+  鈹? 鈹? $ openspec status --change "add-auth" --json                      鈹? 鈹?
+  鈹? 鈹?                                                                   鈹? 鈹?
+  鈹? 鈹? {                                                                 鈹? 鈹?
+  鈹? 鈹?   "artifacts": [                                                  鈹? 鈹?
+  鈹? 鈹?     {"id": "proposal", "status": "done"},                         鈹? 鈹?
+  鈹? 鈹?     {"id": "specs", "status": "ready"},      鈼勨攢鈹€ First ready      鈹? 鈹?
+  鈹? 鈹?     {"id": "design", "status": "ready"},                          鈹? 鈹?
+  鈹? 鈹?     {"id": "tasks", "status": "blocked", "missingDeps": ["specs"]}鈹? 鈹?
+  鈹? 鈹?   ]                                                               鈹? 鈹?
+  鈹? 鈹? }                                                                 鈹? 鈹?
+  鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹?
+  鈹?                                                                         鈹?
+  鈹? Step 2: Get rich instructions for ready artifact                        鈹?
+  鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹?
+  鈹? 鈹? $ openspec instructions specs --change "add-auth" --json          鈹? 鈹?
+  鈹? 鈹?                                                                   鈹? 鈹?
+  鈹? 鈹? {                                                                 鈹? 鈹?
+  鈹? 鈹?   "template": "# Specification\n\n## ADDED Requirements...",      鈹? 鈹?
+  鈹? 鈹?   "dependencies": [{"id": "proposal", "path": "...", "done": true}鈹? 鈹?
+  鈹? 鈹?   "unlocks": ["tasks"]                                            鈹? 鈹?
+  鈹? 鈹? }                                                                 鈹? 鈹?
+  鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹?
+  鈹?                                                                         鈹?
+  鈹? Step 3: Read dependencies 鈫?Create ONE artifact 鈫?Show what's unlocked  鈹?
+  鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
 ```
 
 ### Iteration Model
 
-**Legacy workflow** — awkward to iterate:
+**Legacy workflow** 鈥?awkward to iterate:
 
 ```
-  ┌─────────┐     ┌─────────┐     ┌─────────┐
-  │/proposal│ ──► │ /apply  │ ──► │/archive │
-  └─────────┘     └─────────┘     └─────────┘
-       │               │
-       │               ├── "Wait, the design is wrong"
-       │               │
-       │               ├── Options:
-       │               │   • Edit files manually (breaks context)
-       │               │   • Abandon and start over
-       │               │   • Push through and fix later
-       │               │
-       │               └── No official "go back" mechanism
-       │
-       └── Creates ALL artifacts at once
+  鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+  鈹?proposal鈹?鈹€鈹€鈻?鈹?/apply  鈹?鈹€鈹€鈻?鈹?archive 鈹?
+  鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+       鈹?              鈹?
+       鈹?              鈹溾攢鈹€ "Wait, the design is wrong"
+       鈹?              鈹?
+       鈹?              鈹溾攢鈹€ Options:
+       鈹?              鈹?  鈥?Edit files manually (breaks context)
+       鈹?              鈹?  鈥?Abandon and start over
+       鈹?              鈹?  鈥?Push through and fix later
+       鈹?              鈹?
+       鈹?              鈹斺攢鈹€ No official "go back" mechanism
+       鈹?
+       鈹斺攢鈹€ Creates ALL artifacts at once
 ```
 
-**OPSX** — natural iteration:
+**OPSX** 鈥?natural iteration:
 
 ```
-  /opsx:new ───► /opsx:continue ───► /opsx:apply ───► /opsx:archive
-      │                │                  │
-      │                │                  ├── "The design is wrong"
-      │                │                  │
-      │                │                  ▼
-      │                │            Just edit design.md
-      │                │            and continue!
-      │                │                  │
-      │                │                  ▼
-      │                │         /opsx:apply picks up
-      │                │         where you left off
-      │                │
-      │                └── Creates ONE artifact, shows what's unlocked
-      │
-      └── Scaffolds change, waits for direction
+  /opsx:new 鈹€鈹€鈹€鈻?/opsx:continue 鈹€鈹€鈹€鈻?/opsx:apply 鈹€鈹€鈹€鈻?/opsx:archive
+      鈹?               鈹?                 鈹?
+      鈹?               鈹?                 鈹溾攢鈹€ "The design is wrong"
+      鈹?               鈹?                 鈹?
+      鈹?               鈹?                 鈻?
+      鈹?               鈹?           Just edit design.md
+      鈹?               鈹?           and continue!
+      鈹?               鈹?                 鈹?
+      鈹?               鈹?                 鈻?
+      鈹?               鈹?        /opsx:apply picks up
+      鈹?               鈹?        where you left off
+      鈹?               鈹?
+      鈹?               鈹斺攢鈹€ Creates ONE artifact, shows what's unlocked
+      鈹?
+      鈹斺攢鈹€ Scaffolds change, waits for direction
 ```
 
 ### Custom Schemas
@@ -606,11 +607,11 @@ Schemas are stored in `openspec/schemas/` (project-local, version controlled) or
 **Schema structure:**
 ```
 openspec/schemas/research-first/
-├── schema.yaml
-└── templates/
-    ├── research.md
-    ├── proposal.md
-    └── tasks.md
+鈹溾攢鈹€ schema.yaml
+鈹斺攢鈹€ templates/
+    鈹溾攢鈹€ research.md
+    鈹溾攢鈹€ proposal.md
+    鈹斺攢鈹€ tasks.md
 ```
 
 **Example schema.yaml:**
@@ -632,7 +633,7 @@ artifacts:
 
 **Dependency Graph:**
 ```
-   research ──► proposal ──► tasks
+   research 鈹€鈹€鈻?proposal 鈹€鈹€鈻?tasks
 ```
 
 ### Summary
@@ -650,7 +651,9 @@ artifacts:
 
 Schemas define what artifacts exist and their dependencies. Currently available:
 
-- **spec-driven** (default): proposal → specs → design → tasks
+- **spec-tdd** (default): proposal -> specs + tdd-plan -> design -> tasks
+- **spec-driven**: proposal -> specs -> design -> tasks
+- **tdd**: tests -> implementation -> docs
 
 ```bash
 # List available schemas
@@ -673,12 +676,13 @@ openspec schema validate my-workflow
 
 - Use `/opsx:explore` to think through an idea before committing to a change
 - `/opsx:ff` when you know what you want, `/opsx:continue` when exploring
-- During `/opsx:apply`, if something's wrong — fix the artifact, then continue
+- During `/opsx:apply`, if something's wrong 鈥?fix the artifact, then continue
 - Tasks track progress via checkboxes in `tasks.md`
 - Check status anytime: `openspec status --change "name"`
 
 ## Feedback
 
-This is rough. That's intentional — we're learning what works.
+This is rough. That's intentional 鈥?we're learning what works.
 
 Found a bug? Have ideas? Join us on [Discord](https://discord.gg/YctCnvvshC) or open an issue on [GitHub](https://github.com/Fission-AI/openspec/issues).
+

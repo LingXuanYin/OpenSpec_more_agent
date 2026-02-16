@@ -262,6 +262,8 @@ version: [[[invalid yaml
       const schemas = listSchemas();
 
       expect(schemas).toContain('spec-driven');
+      expect(schemas).toContain('spec-tdd');
+      expect(schemas).toContain('tdd');
     });
 
     it('should include user override schemas', () => {

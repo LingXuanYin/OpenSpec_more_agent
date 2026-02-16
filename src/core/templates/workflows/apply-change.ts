@@ -44,7 +44,7 @@ ${getModeSpecificRoleResponsibilities('apply')}
    \`\`\`
 
    This returns:
-   - Context file paths (varies by schema - could be proposal/specs/design/tasks or spec/tests/implementation/docs)
+   - Context file paths (varies by schema - e.g., spec-driven proposal/specs/design/tasks, spec-tdd proposal/specs/test-plan/design/tasks, or tdd tests/implementation/docs)
    - Progress (total, complete, remaining)
    - Task list with status
    - Dynamic instruction based on current state
@@ -59,6 +59,7 @@ ${getModeSpecificRoleResponsibilities('apply')}
    Read the files listed in \`contextFiles\` from the apply instructions output.
    The files depend on the schema being used:
    - **spec-driven**: proposal, specs, design, tasks
+   - **spec-tdd**: proposal, specs, tdd-plan, design, tasks
    - Other schemas: follow the contextFiles from CLI output
 
 5. **Show current progress**
@@ -219,6 +220,7 @@ ${getModeSpecificRoleResponsibilities('apply')}
    Read the files listed in \`contextFiles\` from the apply instructions output.
    The files depend on the schema being used:
    - **spec-driven**: proposal, specs, design, tasks
+   - **spec-tdd**: proposal, specs, tdd-plan, design, tasks
    - Other schemas: follow the contextFiles from CLI output
 
 5. **Show current progress**

@@ -1,0 +1,72 @@
+name: spec-tdd
+version: 1
+description: Orthogonal spec + TDD workflow with convergence before implementation
+artifacts:
+  - id: proposal
+    generates: proposal.md
+    description: Change intent, scope boundaries, and capability map
+    template: proposal.md
+    instruction: |
+      Define the problem, scope, and capability map for this change.
+
+      Keep this file implementation-agnostic.
+      Focus on user value, boundaries, and success criteria.
+    requires: []
+
+  - id: specs
+    generates: "specs/**/*.md"
+    description: Behavioral requirements and executable scenarios
+    template: spec.md
+    instruction: |
+      Write capability specs that describe externally observable behavior.
+
+      This is the specification track (what must be true).
+      It should stay independent from implementation details.
+    requires:
+      - proposal
+
+  - id: tdd-plan
+    generates: test-plan.md
+    description: RED-GREEN-REFACTOR testing strategy and test matrix
+    template: test-plan.md
+    instruction: |
+      Build a strict TDD plan for the same scope.
+
+      This is the testing strategy track (how behavior will be proven).
+      Keep it orthogonal to the spec text, but map to the same outcomes.
+    requires:
+      - proposal
+
+  - id: design
+    generates: design.md
+    description: Technical design that reconciles spec and TDD tracks
+    template: design.md
+    instruction: |
+      Produce a technical design only after both specs and the TDD plan exist.
+
+      Design must explain how implementation decisions satisfy:
+      1) the spec requirements
+      2) the TDD verification strategy
+    requires:
+      - specs
+      - tdd-plan
+
+  - id: tasks
+    generates: tasks.md
+    description: Execution checklist in small TDD slices
+    template: tasks.md
+    instruction: |
+      Break work into small vertical slices.
+
+      Every slice should include RED, GREEN, and REFACTOR tasks.
+      Keep tasks actionable and trackable with checkboxes.
+    requires:
+      - design
+
+apply:
+  requires: [tasks]
+  tracks: tasks.md
+  instruction: |
+    Implement tasks in strict RED-GREEN-REFACTOR order.
+    For each task, prove behavior with a failing test first, then minimal code, then refactor.
+    Keep tasks and tests synchronized as the source of progress.

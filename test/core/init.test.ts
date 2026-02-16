@@ -42,7 +42,7 @@ describe('InitCommand', () => {
       expect(await fileExists(configPath)).toBe(true);
 
       const content = await fs.readFile(configPath, 'utf-8');
-      expect(content).toContain('schema: spec-driven');
+      expect(content).toContain('schema: spec-tdd');
     });
 
     it('should create 11 Agent Skills for Claude Code', async () => {
