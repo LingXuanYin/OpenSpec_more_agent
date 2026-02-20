@@ -4,6 +4,7 @@ import { InitCommand } from '../../src/core/init.js';
 import { FileSystemUtils } from '../../src/utils/file-system.js';
 import { OPENSPEC_MARKERS } from '../../src/core/config.js';
 import type { GlobalConfig } from '../../src/core/global-config.js';
+import { ALL_WORKFLOWS } from '../../src/core/profiles.js';
 import path from 'path';
 import fs from 'fs/promises';
 import os from 'os';
@@ -254,6 +255,13 @@ Old instructions content
     });
 
     it('should refresh workflow commands with role orchestration protocol', async () => {
+      setMockConfig({
+        featureFlags: {},
+        profile: 'custom',
+        delivery: 'both',
+        workflows: [...ALL_WORKFLOWS],
+      });
+
       const skillsDir = path.join(testDir, '.claude', 'skills');
       await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
         recursive: true,
@@ -592,6 +600,13 @@ Old instructions content
     });
 
     it('should refresh workflow skills with role orchestration protocol', async () => {
+      setMockConfig({
+        featureFlags: {},
+        profile: 'custom',
+        delivery: 'both',
+        workflows: [...ALL_WORKFLOWS],
+      });
+
       const skillsDir = path.join(testDir, '.claude', 'skills');
       const workflowSkills = [
         'openspec-explore',

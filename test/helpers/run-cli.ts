@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import { existsSync } from 'fs';
+import { existsSync, readdirSync, statSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -10,6 +10,42 @@ const projectRoot = path.resolve(__dirname, '..', '..');
 const cliEntry = path.join(projectRoot, 'dist', 'cli', 'index.js');
 
 let buildPromise: Promise<void> | undefined;
+
+function getLatestMtimeMs(rootDir: string): number {
+  let latest = 0;
+
+  for (const entry of readdirSync(rootDir, { withFileTypes: true })) {
+    const fullPath = path.join(rootDir, entry.name);
+    if (entry.isDirectory()) {
+      latest = Math.max(latest, getLatestMtimeMs(fullPath));
+      continue;
+    }
+
+    if (entry.isFile()) {
+      latest = Math.max(latest, statSync(fullPath).mtimeMs);
+    }
+  }
+
+  return latest;
+}
+
+function shouldRebuildCli(): boolean {
+  if (!existsSync(cliEntry)) {
+    return true;
+  }
+
+  try {
+    const distMtime = statSync(cliEntry).mtimeMs;
+    const srcMtime = getLatestMtimeMs(path.join(projectRoot, 'src'));
+    const buildScriptMtime = statSync(path.join(projectRoot, 'build.js')).mtimeMs;
+    const packageJsonMtime = statSync(path.join(projectRoot, 'package.json')).mtimeMs;
+    const latestSourceMtime = Math.max(srcMtime, buildScriptMtime, packageJsonMtime);
+
+    return latestSourceMtime > distMtime;
+  } catch {
+    return true;
+  }
+}
 
 interface RunCommandOptions {
   cwd?: string;
@@ -54,7 +90,7 @@ function runCommand(command: string, args: string[], options: RunCommandOptions 
 }
 
 export async function ensureCliBuilt() {
-  if (existsSync(cliEntry)) {
+  if (!shouldRebuildCli()) {
     return;
   }
 

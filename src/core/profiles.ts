@@ -19,6 +19,7 @@ export const CORE_WORKFLOWS = ['propose', 'explore', 'apply', 'archive'] as cons
 export const ALL_WORKFLOWS = [
   'propose',
   'explore',
+  'deepresearch',
   'new',
   'continue',
   'apply',

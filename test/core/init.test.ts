@@ -4,6 +4,7 @@ import path from 'path';
 import os from 'os';
 import { InitCommand } from '../../src/core/init.js';
 import { saveGlobalConfig, getGlobalConfig } from '../../src/core/global-config.js';
+import { ALL_WORKFLOWS } from '../../src/core/profiles.js';
 
 describe('InitCommand', () => {
   let testDir: string;
@@ -337,6 +338,13 @@ describe('InitCommand', () => {
     });
 
     it('should include role orchestration protocol in workflow skill files', async () => {
+      saveGlobalConfig({
+        featureFlags: {},
+        profile: 'custom',
+        delivery: 'both',
+        workflows: [...ALL_WORKFLOWS],
+      });
+
       const initCommand = new InitCommand({ tools: 'claude', force: true });
       await initCommand.execute(testDir);
 
@@ -410,6 +418,13 @@ describe('InitCommand', () => {
     });
 
     it('should include role orchestration protocol in workflow command files', async () => {
+      saveGlobalConfig({
+        featureFlags: {},
+        profile: 'custom',
+        delivery: 'both',
+        workflows: [...ALL_WORKFLOWS],
+      });
+
       const initCommand = new InitCommand({ tools: 'claude', force: true });
       await initCommand.execute(testDir);
 
